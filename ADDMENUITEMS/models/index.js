@@ -2,7 +2,7 @@
 
 var fs        = require("fs");
 var path      = require("path");
-var Sequelize = require("sequelize");
+var Sequelize = require("connect.js")
 // if (process.env.DATABASE_URL) {
 //     // the application is executed on Heroku
 //     sequelize = new Sequelize(process.env.DATABASE_URL, {
@@ -12,7 +12,7 @@ var Sequelize = require("sequelize");
 //     })
 //   } else {
 //     // the application is executed on the local machine
-var    sequelize = new Sequelize('postgres://maartje:hartje123@192.168.99.100:32772/restaurantpos')
+
   // }
 var db        = {};
 
