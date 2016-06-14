@@ -1,0 +1,123 @@
+// Thoughts on the database design
+
+relational data -> sql
+
+multiple clients -> multi tenant
+
+same schema for every client?
+
+how important is data segregation here?
+
+one db per user? 
+
+
+
+example for multi tenancy in one db:
+	
+tables:
+	clients (contains information about the restaurants)
+		has many users
+		has many menu items
+		has many customers
+		has many orders
+		(has many customroles)
+		has many tables
+
+	defaultroles (contains general employee roles)
+		default roles for every client (no association)
+
+	customroles (contains special employee role)
+		belongs to client
+		has many users
+
+	users (contains all employees)
+		belongs to client
+		belongs to many roles
+
+	menu (contains the food menu)
+		belongs to client
+
+	customer (contains all customers of a client)
+		belongs to client
+		has one table
+		has one user
+		has many orders
+
+	orders (contains every order)
+		belongs to client
+		has many menu items
+
+
+	tables (contains all tables in the restaurant)
+		belongs to client
+		has many orders
+
+
+
+clients
+	name
+	description
+	logo
+	admin
+
+defaultroles
+	name
+	description
+	defaultview
+	isadmin
+
+customroles (not necessary yet)
+	name
+	description
+	defaultview
+	isadmin
+
+users
+	(belongs to) client
+	username
+	password
+	email
+	firstname
+	lastname
+	employeeid (internal id)
+	(has one) role
+	(has many) customer
+
+menu
+	(belongs to) client
+	name
+	category
+	isside
+	price
+	singleprice (if sidedish)
+	isdrink
+	(isveggie)
+	(isvegan)
+
+customer
+	(belongs to) client
+	(belongs to) table
+	(has one) user
+	(has many) orders
+	haspayed
+
+orders
+	comment
+	(belongs to) client
+	(belongs to) customer
+	(has many) menu items
+
+tables
+	(belongs to) client
+	number
+	isfree
+
+
+
+
+
+
+
+
+sequelize doc on associations:
+http://docs.sequelizejs.com/en/latest/docs/associations/
