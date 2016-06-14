@@ -1,0 +1,1 @@
+angular.module('restaurantPOS', ['ngRoute', 'appRoutes']);

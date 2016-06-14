@@ -1,0 +1,18 @@
+<div class="col-md-8 col-md-offset-2 col-sm-12" ng-controller="DrinksController">
+	<form>
+		<h1>Create A New Order</h1>
+		<div class="drinks">
+			<ul>
+				<li ng-repeat="drink in drinks" ng-click="toggleActive(drink)" ng-class="{active:drink.active}">
+					{{drink.name}} 
+					<span>{{drink.price | currency}}</span>
+					<span ng-click="addOne(drink)">Plus</span>
+					<span ng-click="removeOne(drink)">Minus</span>
+				</li>
+			</ul>
+		</div>
+		<div class="total">
+			Total: <span>{{total() | currency}}</span>
+		</div>
+	</form>
+</div>
