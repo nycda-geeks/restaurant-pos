@@ -3,7 +3,10 @@ module.exports = function(sequelize, DataTypes) {
 		name: DataTypes.STRING,
 		description: DataTypes.TEXT,
 		defaultview: DataTypes.STRING,
-		isadmin: DataTypes.BOOLEAN
+		isadmin: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
+		}
 	});
 	return Role;
 };
