@@ -3,28 +3,15 @@ module.exports = function(sequelize, DataTypes) {
 		name: DataTypes.STRING,
 		category: DataTypes.STRING,
 		price: DataTypes.FLOAT,
-		isside: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false
-		},
+		isside: DataTypes.BOOLEAN,
 		singleprice: DataTypes.FLOAT,
-		isdrink: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false,
-			defaultValue: false
-		},
-		isveggie: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false
-		},
-		isvegan: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false
-		}
+		isdrink: DataTypes.BOOLEAN,
+		isveggie: DataTypes.BOOLEAN,
+		isvegan: DataTypes.BOOLEAN
 	}, {
 		classMethods: {
 			associate: function(models) {
-				MenuItem.belongsTo(models.Client)
+				MenuItem.belongsTo(models.Client, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
 			}
 		}
 	});
