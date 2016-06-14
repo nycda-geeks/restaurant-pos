@@ -1,26 +1,31 @@
-angular.module('appRoutes', [])
-	.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-		$routeProvider
-			.when('/', {
-				templateUrl:'views/login.html',
-				controller: 'MainController'
-			}),
-			.when('/waiter', {
-				templateUrl:'views/waiter.html',
-				controller: 'WaiterController'
-			}),
-			.when('/waiter/table', {
-				templateUrl: 'views/table.html',
-				controller: 'TableController'
-			})
-			.when('/waiter/drinks', {
-				templateUrl: 'views/drinks.html',
-				controller: 'DrinksController'
-			}),
-			.when('/waiter/food', {
-				templateUrl: 'views/food.html',
-				controller: 'FoodController'
-			})
+angular.module('appRoutes', ["ui.router"])
+	.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
+		function($stateProvider, $urlRouterProvider, $locationProvider) {
+			$stateProvider
+				.state('home', {
+					url: '/',
+					templateUrl:'views/login.html',
+					controller: 'MainController'
+				}),
+				.state('waiter', {
+					url: '/waiter',
+					templateUrl:'views/waiter.html',
+					controller: 'WaiterController'
+				}),
+				.when('waiter.newOrder', {
+					url: '/newOrder'
+					templateUrl: 'views/newOrder.html',
+					controller: 'NewOrderController'
+				})
+				.when('newOrder.drinks', {
+					url: '/drinks'
+					templateUrl: 'views/newOrder.drinks.html',
+					controller: 'DrinksController'
+				}),
+				.when('/waiter/food', {
+					templateUrl: 'views/newOrder.food.html',
+					controller: 'FoodController'
+				})
 
-		$locationProvider.html5Mode(true);
+			$locationProvider.html5Mode(true);
 }]);
