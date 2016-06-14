@@ -44,6 +44,30 @@ db.sequelize.sync({force: true})
 		})
 
 		client.createMenuItem({
+			'name': 'Steak 200g',
+			'category': 'Main courses',
+			'price': 15.00,
+			'amountofsides': 2
+		})		
+
+		client.createMenuItem({
+			'name': 'Fries',
+			'category': 'Sides',
+			'isside': true,
+			'price': 3.50,
+			'sideprice': 0
+		})
+
+		client.createMenuItem({
+			'name': 'Small Salad',
+			'category': 'Sides',
+			'isside': true,
+			'price': 3.50,
+			'sideprice': 0,
+			'isvegan': true
+		})
+
+		client.createMenuItem({
 			'name': 'Pizza Veggie',
 			'category': 'Pizza',
 			'price': 9.00,
@@ -94,18 +118,66 @@ db.sequelize.sync({force: true})
 							client.createOrder({
 								'CustomerId': customer.id,
 							}).then(function(order) {
-								console.log(order)
+
+								/*
+								// item1 with side - not returning id
 								client.getMenuItems({
-									'where': {'name': 'Pizza Salami'}
+									'where': {'name': 'Steak 200g'}
 								}).then(function(menuitem) {
-									order.addMenuItem(menuitem[0], {status: 'ordered'})
+									order.addMenuItem(menuitem[0], {status: 'ordered'}).then(function(orderitem) {
+										console.log(orderitem[0])
+										client.getMenuItems({
+											'where': {'name': 'Fries'}
+										}).then(function(menuitem) {
+											console.log(orderitem[0])
+											order.addMenuItem(menuitem[0], {status: 'ordered', OrderItemId: orderitem[0].id })
+
+										})
+									})
 								})
+								*/
+
+								// item2 with side - returning id
+								client.getMenuItems({
+									'where': {'name': 'Steak 200g'}
+								}).then(function(menuitem) {
+									db.OrderItems.create({
+										status: 'ordered',
+										MenuItemId: menuitem[0].id,
+										OrderId: order.id
+									}).then(function(orderitem) {
+
+										client.getMenuItems({
+											'where': {'name': 'Fries'}
+										}).then(function(menuitem) {
+											console.log(orderitem)
+											db.OrderItems.create({
+												status: 'ordered',
+												MenuItemId: menuitem[0].id,
+												OrderId: order.id,
+												OrderItemId: orderitem.id
+											})
+										})
+
+									})
+								})
+
+
 
 								client.getMenuItems({
 									'where': {'name': 'Coca-Cola 0.33l'}
 								}).then(function(menuitem) {
-									order.addMenuItem(menuitem[0], {status: 'ordered'})
+									db.OrderItems.create({
+										status: 'ordered',
+										MenuItemId: menuitem[0].id,
+										OrderId: order.id
+									})
 								})
+
+
+
+
+
 
 							})
 
