@@ -2,49 +2,150 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"> -->
+
 	<title>Add Menu Items</title>
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-static-top">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/">Home</a>
+
+	<nav>
+		<div>
+			<div>
+				<a href="/">Home</a>
 				<!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle Navigation</span>
-					<span class='icon-bar'></span>
-					<span class='icon-bar'></span>
-					<span class='icon-bar'></span>
-				</button>
+
+				<ul>
+					<li><a href="/items/all">All Items</a></li>
+					<li><a href="/items/add">Add Items</a></li>
+				</ul>
 			</div>
-			<ul class="nav navbar-nav navbar-right collapse navbar-collapse">
-				<li><a href="/items/all">All Items</a></li>
-				<li><a href="/items/add">Add Items</a></li>
-			</ul>
+		</div>
+	</nav>
+	
+
+
+
+
+	<div ng-app="addMenu">
+		<div ng-controller="mainAddCtrl">
+			<form ng-submit="addItem(itemInfo)" autocomplete="off">
+
+
+				<div ng-model="itemInfo">
+					<label for="name"> Item Name </label>
+					<input type="text" id="name" name="name" ng-model="itemInfo.name"/>
+				</div>
+
+
+				<div>
+					<label for="category"> Item Category </label>
+					<input type="text" id="category" name="category" ng-model="itemInfo.category"/>
+				</div>
+
+
+				<div>
+					<label for="price"> Item Price </label>
+					<input type="number" id="price" name="price" ng-model="itemInfo.price"/>
+				</div>
+				
+
+
+
+				<div>
+					<label for="isdrink"> Is the item a drink? </label>
+					<select id="isdrink" name="isdrink" ng-model="itemInfo.isdrink">
+						<option value="true">Yes</option>
+						<option value="">No</option>
+					</select>
+				</div>
+
+				
+
+				<div>
+					<label for="isveggie"> Is the item suited for vegetarians? </label>
+					<select id="isveggie" name="isveggie" ng-model="itemInfo.isveggie">
+						<option value="true">Yes</option>
+						<option value="">No</option>
+					</select>
+				</div>
+
+				
+
+				<div>
+					<label for="isvegan"> Is the item suited for vegans? </label>
+					<select id="isvegan" name="isvegan" ng-model="itemInfo.isvegan">
+						<option value="true">Yes</option>
+						<option value="">No</option>
+					</select>
+				</div>
+
+				
+
+				<div>
+					<label for="isside"> Is the item a sidedish? </label>
+					<select id="isside" name="isside" ng-model="itemInfo.isside">
+						<option value="true">Yes</option>
+						<option value="">No</option>
+					</select>
+				</div>
+
+				
+
+				<div>
+					<label for="sideprice"> What is the individual price for the sidedish?</label>
+					<input type="number" id="sideprice" name="sideprice" ng-model="itemInfo.sideprice"/>
+				</div>
+
+				
+
+				<div>
+					<input type="submit" value="addItem">
+				</div>
+
+				
+
+				<pre>{{menuItems | json}}</pre>
+			</form>
 		</div>
 	</div>
 
 
 
-	<div class="container">
-		<div class="row">
-			<p> Add Menu Items </p>
-		</div>
-		<form action="">
-			<input type="text" class="input-group">
-			<input type="text" class="input-group">
-			<input type="text" class="input-group">
-			<input type="text" class="input-group">
-			<input type="text" class="input-group">
-			<input type="text" class="input-group">
-			<input type="text" class="input-group">
-			<input type="text" class="input-group">
-		</form>
-	</div>
-</div>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script> -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+	<script>
+
+
+		var app = angular.module('addMenu', [])
+
+		app.controller('mainAddCtrl', function($scope){
+
+			$scope.menuItems = [];
+
+
+			$scope.addItem = function(itemInfo){
+				$scope.menuItems.push({
+					"name": itemInfo.name,
+					"category": itemInfo.category,
+					"price": itemInfo.price,
+					"isdrink": itemInfo.isdrink,
+					"isveggie": itemInfo.isveggie,
+					"isvegan": itemInfo.isvegan,
+					"isside": itemInfo.isside,
+					"sideprice": itemInfo.sideprice,
+				})
+			}
+
+		})
+
+		app.$inject = ['$scope']
+
+	</script>
+
 </body>
 </html>
