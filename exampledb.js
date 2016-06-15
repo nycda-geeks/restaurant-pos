@@ -31,6 +31,14 @@ db.sequelize.sync({force: true})
 			'lastname': 'Mario'
 		})
 
+		client.createUser({
+			'username': 'mario',
+			'password': 'mario',
+			'email': 'mario@gmx.de',
+			'firstname': 'Mario',
+			'lastname': 'Mario'
+		})
+
 		client.createMenuItem({
 			'name': 'Pizza Salami',
 			'category': 'Pizza',
@@ -116,26 +124,9 @@ db.sequelize.sync({force: true})
 						}).then(function() {
 
 							client.createOrder({
-								'CustomerId': customer.id,
+								CustomerId: customer.id,
+								UserId: user[0].id
 							}).then(function(order) {
-
-								/*
-								// item1 with side - not returning id
-								client.getMenuItems({
-									'where': {'name': 'Steak 200g'}
-								}).then(function(menuitem) {
-									order.addMenuItem(menuitem[0], {status: 'ordered'}).then(function(orderitem) {
-										console.log(orderitem[0])
-										client.getMenuItems({
-											'where': {'name': 'Fries'}
-										}).then(function(menuitem) {
-											console.log(orderitem[0])
-											order.addMenuItem(menuitem[0], {status: 'ordered', OrderItemId: orderitem[0].id })
-
-										})
-									})
-								})
-								*/
 
 								// item2 with side - returning id
 								client.getMenuItems({
@@ -168,7 +159,7 @@ db.sequelize.sync({force: true})
 									'where': {'name': 'Coca-Cola 0.33l'}
 								}).then(function(menuitem) {
 									db.OrderItems.create({
-										status: 'ordered',
+										status: 'ready',
 										MenuItemId: menuitem[0].id,
 										OrderId: order.id
 									})
@@ -189,6 +180,146 @@ db.sequelize.sync({force: true})
 
 		}, 3000);
 
+
+
+		setTimeout(function() {
+			// wait 5 sec before create customer
+			client.getUsers({'where': {'username': 'mario'}}).then(function(user){
+				
+				client.createCustomer({
+					'UserId': user[0].id,
+					'TableId': 3
+				}).then(function(customer) {
+					
+					db.Table.findOne({
+						'where': {'id': customer.TableId}
+					}).then(function(table) {
+						
+						table.update({
+							'isfree': false
+						}).then(function() {
+
+							client.createOrder({
+								CustomerId: customer.id,
+								UserId: user[0].id
+							}).then(function(order) {
+
+								// item2 with side - returning id
+								client.getMenuItems({
+									'where': {'name': 'Pizza Veggie'}
+								}).then(function(menuitem) {
+									db.OrderItems.create({
+										status: 'ordered',
+										MenuItemId: menuitem[0].id,
+										OrderId: order.id
+									})
+								})
+
+								client.getMenuItems({
+									'where': {'name': 'Sparkling Water 0.33l'}
+								}).then(function(menuitem) {
+									db.OrderItems.create({
+										status: 'ready',
+										MenuItemId: menuitem[0].id,
+										OrderId: order.id
+									})
+								})
+							})
+
+							client.createOrder({
+								CustomerId: customer.id,
+								UserId: user[0].id
+							}).then(function(order) {
+
+								// item2 with side - returning id
+								client.getMenuItems({
+									'where': {'name': 'Coca-Cola 0.33l'}
+								}).then(function(menuitem) {
+									db.OrderItems.create({
+										status: 'ordered',
+										MenuItemId: menuitem[0].id,
+										OrderId: order.id
+									})
+								})
+							})
+
+
+						})
+					})
+				})
+			})
+
+		}, 3000);
+
+
+		setTimeout(function() {
+			// wait 5 sec before create customer
+			client.getUsers({'where': {'username': 'luigi'}}).then(function(user){
+				
+				client.createCustomer({
+					'UserId': user[0].id,
+					'TableId': 2
+				}).then(function(customer) {
+					
+					db.Table.findOne({
+						'where': {'id': customer.TableId}
+					}).then(function(table) {
+						
+						table.update({
+							'isfree': false
+						}).then(function() {
+
+							client.createOrder({
+								CustomerId: customer.id,
+								UserId: user[0].id
+							}).then(function(order) {
+
+								// item2 with side - returning id
+								client.getMenuItems({
+									'where': {'name': 'Pizza Ham'}
+								}).then(function(menuitem) {
+									db.OrderItems.create({
+										status: 'ordered',
+										MenuItemId: menuitem[0].id,
+										OrderId: order.id
+									})
+								})
+
+								client.getMenuItems({
+									'where': {'name': 'Pizza Salami'}
+								}).then(function(menuitem) {
+									db.OrderItems.create({
+										status: 'ordered',
+										MenuItemId: menuitem[0].id,
+										OrderId: order.id
+									})
+								})
+
+								client.getMenuItems({
+									'where': {'name': 'Small Salad'}
+								}).then(function(menuitem) {
+									db.OrderItems.create({
+										status: 'ordered',
+										MenuItemId: menuitem[0].id,
+										OrderId: order.id
+									})
+								})
+
+
+
+
+
+
+
+							})
+
+
+						})
+					})
+				})
+			})
+
+		}, 3000);
 
 	})
 
