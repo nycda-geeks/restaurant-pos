@@ -8,10 +8,10 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+    <link rel="stylesheet" href="/public/css/style.css"> <!-- custom styles -->
 
     <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js"></script>
     <!--<script src="https://code.angularjs.org/1.4.5/angular-route.js"></script> -->
     <!-- UI-Router -->
     <script src="https://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
@@ -21,12 +21,10 @@
     <script src="js/controllers/MainCtrl.js"></script>
     <script src="js/controllers/NerdCtrl.js"></script>
     <script src="js/services/NerdService.js"></script>
-    
-    <script src="js/routes.js"></script>
-    <script src="js/app.js"></script>
     -->
+    
 </head>
-<body ng-app="restaurantPOS" ng-controller="DrinksController">
+<body ng-app="restaurantPOS" ng-controller="newOrderController">
 <!-- NAVBAR -->
 <!-- HEADER -->
 <div class="navbar navbar-inverse navbar-static-top">
@@ -49,54 +47,15 @@
 </div>
 
 <!-- ANGULAR DYNAMIC CONTENT -->
-<div ng-view></div>
+<div ui-view></div>
 
-<script>
-  angular.module('restaurantPOS', ["ui.router"])
-    .config(['$stateProvider', '$urlRouterProvider',
-      function($stateProvider, $urlRouterProvider) {
+<script src="/public/js/routes.js"></script>
+<script src="/public/js/app.js"></script>
+<script src="/public/js/controllers/newOrder.js"></script>
+<script src="/public/js/controllers/drinks.js"></script>
+<script src="/public/js/controllers/food.js"></script>
+<script src="/public/js/controllers/waiter.js"></script>
+<script src="/public/js/controllers/bill.js"></script>
 
-        // For any unmatched url, send to /route1
-        $urlRouterProvider.otherwise("/newOrder");
-
-        $stateProvider
-          .state('home', {
-            url: '/',
-            templateUrl:'views/newOrder.html',
-            controller: 'DrinksController'
-          })
-          .state('waiter', {
-            url: '/waiter',
-            templateUrl:'views/waiter.html',
-            controller: 'WaiterController'
-          })
-          .state('newOrder', {
-            url: '/newOrder',
-            templateUrl: 'views/newOrder.html',
-            controller: 'NewOrderController'
-          })
-          .state('newOrder.drinks', {
-            url: '/drinks',
-            templateUrl: 'views/newOrder.drinks.html',
-            controller: 'DrinksController'
-          })
-          .state('newOrder.food', {
-            url: '/food',
-            templateUrl: 'views/newOrder.food.html',
-            controller: 'FoodController'
-          })
-
-        $locationProvider.html5Mode(true);
-  }]);
-</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-

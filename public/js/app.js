@@ -1,1 +1,1 @@
-angular.module('restaurantPOS', ['ngRoute', 'appRoutes']);
+angular.module('restaurantPOS', ['routes', 'ui.router']);

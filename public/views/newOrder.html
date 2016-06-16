@@ -1,18 +1,74 @@
-<div class="col-md-8 col-md-offset-2 col-sm-12" ng-controller="DrinksController">
-	<form>
+<div class="col-md-12 col-sm-12" ng-controller="newOrderController">
 		<h1>Create A New Order</h1>
-		<div class="drinks">
-			<ul>
-				<li ng-repeat="drink in drinks" ng-click="toggleActive(drink)" ng-class="{active:drink.active}">
-					{{drink.name}} 
-					<span>{{drink.price | currency}}</span>
-					<span ng-click="addOne(drink)">Plus</span>
-					<span ng-click="removeOne(drink)">Minus</span>
-				</li>
-			</ul>
+
+		<!-- DRINKS -->
+		<div class="col-md-6 col-md-offset-3 col-sm-12">
+			<form>
+				<h1>Drinks</h1>
+				<div class="drinks">
+					<ul>
+						<li ng-repeat="drink in drinks" ng-click="toggleActive(drink)" ng-class="{active:drink.active}">
+							{{drink.name}} - {{drink.price | currency}}
+							<span class="plusminus" ng-click="removeOne(drink)">&#45</span>
+							<span class="plusminus" ng-click="addOne(drink)">&#43</span>
+							<!--<span>{{drink.quantity}}</span> -->
+						</li>
+					</ul>
+				</div>
+			</form>
 		</div>
-		<div class="total">
-			Total: <span>{{total() | currency}}</span>
+
+		<div class="row">
+			<!-- FOOD -->
+			<div class="col-md-6 col-md-offset-3 col-sm-12">
+				<form>
+					<h1>Food</h1>
+					<div class="food">
+						<ul>
+							<li ng-repeat="food in food" ng-click="toggleActive(drink)" ng-class="{active:food.active}">
+								{{food.name}} - {{food.price | currency}}
+								<span class="plusminus" ng-click="removeOne(food)">&#45</span>
+								<span class="plusminus" ng-click="addOne(food)">&#43</span>
+								<!-- <span>{{food.quantity}}</span> -->
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+
+			<div class="col-md-3" ng-hide="addside">
+				<form>
+					<span><a href="#" ng-click="addside = true" class="closeDiv">&times</a></span>
+					<h1>Sides</h1>
+					<div class="sides">
+						<ul>
+							<li ng-repeat="side in sides" ng-click="toggleActive(side)" ng-class="{active:food.active}">
+								{{side.name}} - {{side.sideprice | currency}}
+								<span class="plusminus" ng-click="removeOne(side)">&#45</span>
+								<span class="plusminus" ng-click="addOneSide(side)">&#43</span>
+								<!-- <span>{{food.quantity}}</span> -->
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
 		</div>
-	</form>
+
+		<!-- CURRENT ORDER -->
+		<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder">
+			<form class="currentorder">
+				<h1>Current Order</h1>
+				<ul>
+					<li ng-repeat="order in order track by $index"> 
+						{{order.name}} - {{order.price | currency}}
+						<span class="plusminus" ng-click="removeOne(order)">&#45</span>
+					</li>
+				</ul>
+				<div class="total">
+					Total: {{totalq()}} items <span>{{total() | currency}}</span> 
+				</div>
+			</form>
+			<a href="#" class="btn btn-success closeDiv" role="button">Place Order</a>
+			<a href="/bill" class="btn btn-danger closeDiv" role="button" ng-click="send();">Finalize Bill</a>
+		</div>
 </div>

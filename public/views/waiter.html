@@ -1,6 +1,16 @@
 <div class="col-md-8 col-md-offset-2 col-sm-12" ng-controller="WaiterController">
+	<h1>Tables</h1>
 	<h3>Welcome Back {{waiter.firstname}}</h3>
-	<div class="newSession">
-		<a href="/newCustomer">New Order</a>
+	<div class="tablesfav">
+		<p>My Tables</p>
+		<ul>
+			<li class="tables" ng-repeat="table in favtables"><a ui-sref="order">Table {{table.table_number}}</a><span ng-click="remove($index)"><a href='#'>&#45</a></span></li>
+		</ul>
+	</div>
+	<div class="tablesall">
+		<p>Remaining Tables</p>
+		<ul>
+			<li class="tables" ng-repeat="table in tables"><a ui-sref="order">Table {{table.table_number}}</a><span ng-click="add($index)"><a href='#'>&#43</a></span></li>
+		</ul>
 	</div>
 </div>

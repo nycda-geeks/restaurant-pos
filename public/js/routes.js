@@ -1,31 +1,118 @@
-angular.module('appRoutes', ["ui.router"])
+angular.module('routes', ["ui.router"])
 	.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
 		function($stateProvider, $urlRouterProvider, $locationProvider) {
 			$stateProvider
 				.state('home', {
 					url: '/',
+					templateUrl:'/public/views/waiter.html',
+					controller: 'WaiterController'
+				})
+				.state('order', {
+					url: '/order',
+					templateUrl:'/public/views/newOrder.html',
+					controller: 'newOrderController',
+				})
+				.state('order.sides', {
+					url: '/sides',
+					templateUrl:'/public/views/sides.html',
+					controller: 'newOrderController'
+				})
+				.state('bill', {
+					url: '/bill',
+					templateUrl: '/public/views/bill.html',
+					controller: 'billController'
+				})
+				
+
+			$locationProvider.html5Mode(true);
+}])
+	.factory('shareOrder', function() {
+		var list = [];
+
+		return {
+			sendOrder: sendOrder,
+			getOrder: getOrder
+		};
+
+		function sendOrder(order) {
+			angular.forEach(order, function(m) {
+				list.push(m);
+			});
+		}
+
+		function getOrder() {
+			return list;
+		}
+	})
+
+/*
+	.factory('dataShare', function($rootScope, $timeout) {
+		var service = [];
+		service.data = false;
+		service.sendData = function(data){
+			this.data = data;
+			$timeout(function() {
+				$rootScope.$broadcast('data_shared');
+			}, 100);
+			
+		};
+		service.getData = function(){
+			return this.data;
+		};
+		return service;
+	});*/
+
+	/*
+				.state('home', {
+					url: '/',
 					templateUrl:'views/login.html',
 					controller: 'MainController'
-				}),
+				})
+				.state('newOrder.drinks', {
+					url: '/drinks',
+					templateUrl: '/public/views/newOrder.drinks.html',
+					controller: 'DrinksController'
+				})
+				.state('newOrder.food', {
+					url: '/food',
+					templateUrl: '/public/views/newOrder.food.html',
+					controller: 'FoodController'
+				})
 				.state('waiter', {
 					url: '/waiter',
 					templateUrl:'views/waiter.html',
 					controller: 'WaiterController'
-				}),
-				.when('waiter.newOrder', {
-					url: '/newOrder'
+				})
+				.state('waiter.newOrder', {
+					url: '/newOrder',
 					templateUrl: 'views/newOrder.html',
 					controller: 'NewOrderController'
 				})
-				.when('newOrder.drinks', {
-					url: '/drinks'
+				.state('newOrder.drinks', {
+					url: '/drinks',
 					templateUrl: 'views/newOrder.drinks.html',
 					controller: 'DrinksController'
-				}),
-				.when('/waiter/food', {
+				})
+				.state('newOrder.food', {
+					url: '/food',
 					templateUrl: 'views/newOrder.food.html',
 					controller: 'FoodController'
 				})
+					.state('order', {
+					url: '/',
+					templateUrl:'/public/views/newOrder.html',
+					controller: 'newOrderController',
+					views: {
+						'': {templateUrl: '/public/views/newOrder.html'},
+						'drinks@order': {
+							templateUrl: '/public/views/newOrder.drinks.html',
+							controller: 'DrinksController'
+						},
+						'food@order': {
+							templateUrl: '/public/views/newOrder.food.html',
+							controller: 'FoodController'
+						}
+					}
+				})
 
-			$locationProvider.html5Mode(true);
-}]);
+				*/

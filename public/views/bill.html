@@ -1,0 +1,22 @@
+<div class="col-md-12 col-sm-12" ng-controller="newOrderController">
+	<h1>Finalize Bill</h1>
+
+	<!-- CURRENT ORDER -->
+	<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder">
+		<form class="currentorder">
+			<h1>Current Order</h1>
+			<ul>
+				<li ng-repeat="order in order track by $index"> 
+					{{order.name}} - {{order.price | currency}}
+					<span class="plusminus" ng-click="removeOne(order)">&#45</span>
+				</li>
+			</ul>
+			<div class="total">
+				Total: {{totalq()}} items <span>{{total() | currency}}</span> 
+			</div>
+			<p>{{order | json}}</p>
+		</form>
+		<a href="#" class="btn btn-success closeDiv" role="button">Place Order</a>
+		<a href="#" class="btn btn-danger closeDiv" role="button">Finalize Bill</a>
+	</div>
+</div>

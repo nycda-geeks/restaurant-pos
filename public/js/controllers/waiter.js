@@ -1,38 +1,35 @@
 angular.module('restaurantPOS')
 	.controller('WaiterController', ['$scope', '$http', function($scope, $http) {
-		$scope.drinks = [
+		$scope.tables = [
 			{
-				name: 'Heinekin',
-				price: 2,
-				active: false
+				table_number: 1,
+				table_isfree: true
 			}, {
-				name: 'Amstel',
-				price: 2,
-				active: false
+				table_number: 2,
+				table_isfree: true
 			}, {
-				name: 'Corona',
-				price: 3,
-				active: false
+				table_number: 3,
+				table_isfree: true
 			}, {
-				name: 'Berliner',
-				price: 2.50,
-				active: false
+				table_number: 4,
+				table_isfree: true
+			}, {
+				table_number: 5,
+				table_isfree: false
 			}
 		];
 
-		$scope.toggleActive = function(d) {
-			d.active = !d.active;
-		};
+		$scope.favtables = [];
 
-		$scope.total = function() {
-			var total = 0;
+		$scope.add = function(index) {
+			$scope.favtables.push($scope.tables[index]);
+			$scope.tables.splice(index, 1);
+		}
 
-			angular.forEach($scope.drinks, function(d) {
-				if (d.active) {
-					total += d.price;
-				}
-			});
+		$scope.remove = function(index) {
+			$scope.tables.push($scope.favtables[index]);
+			$scope.favtables.splice(index, 1);
+		}
 
-			return total;
-		};
+
 	}]);

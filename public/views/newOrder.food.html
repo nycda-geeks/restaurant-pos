@@ -1,0 +1,18 @@
+<div class="col-md-8 col-md-offset-2 col-sm-12" ng-controller="FoodController">
+	<form>
+		<h1>Food</h1>
+		<div class="food">
+			<ul>
+				<li ng-repeat="food in food" ng-click="toggleActive(drink)" ng-class="{active:food.active}">
+					{{food.name}} - {{food.price | currency}}
+					<span class="plusminus" ng-click="removeOne(food)">&#45</span>
+					<span class="plusminus" ng-click="addOne(food)">&#43</span>
+					<span>{{food.quantity}}</span>
+				</li>
+			</ul>
+		</div>
+		<div class="total">
+			Total: {{totalq()}} items <span>{{total() | currency}}</span> 
+		</div>
+	</form>
+</div>
