@@ -24,9 +24,13 @@ app.use(function(req,res,next){
 });
 
 // static content and routes setup
-var routes = require('./routes/index');
+var route_index = require('./routes/index');
+var route_api = require('./routes/api');
+var route_app = require('./routes/app');
 app.use('/', express.static('./public/'));
-app.use('/', routes);
+app.use('/v1', route_api);
+app.use('/app', route_app);
+app.use('/', route_index);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

@@ -3,7 +3,10 @@ module.exports = function(sequelize, DataTypes) {
 		haspayed: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false
-		}
+		},
+		billprice: DataTypes.FLOAT,
+		billamountincltip: DataTypes.FLOAT,
+		billpaymethod: DataTypes.STRING
 	}, {
 		classMethods: {
 			associate: function(models) {
