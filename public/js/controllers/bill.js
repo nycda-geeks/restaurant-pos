@@ -1,6 +1,9 @@
 angular.module('restaurantPOS')
-	.controller('billController', ['$scope', '$http','shareOrder', function($scope, $http, shareOrder) {
-
+	.controller('billController', ['$scope', '$http', function($scope, $http) {
+		
+		$http.get('/v1/tables/:id').then(function(res) {
+			$scope.order = res.data;
+		});
 
 		/*
 		$scope.$on('data_shared', function() {
@@ -17,7 +20,7 @@ angular.module('restaurantPOS')
 		}
 		*/
 
-		$scope.order = shareOrder.getOrder();
+		//$scope.order = shareOrder.getOrder();
 
 
 

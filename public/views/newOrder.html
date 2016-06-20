@@ -8,7 +8,7 @@
 				<div class="drinks">
 					<ul>
 						<li ng-repeat="drink in drinks" ng-click="toggleActive(drink)" ng-class="{active:drink.active}">
-							{{drink.name}} - {{drink.price | currency}}
+							{{drink.name}}
 							<span class="plusminus" ng-click="removeOne(drink)">&#45</span>
 							<span class="plusminus" ng-click="addOne(drink)">&#43</span>
 							<!--<span>{{drink.quantity}}</span> -->
@@ -26,7 +26,7 @@
 					<div class="food">
 						<ul>
 							<li ng-repeat="food in food" ng-click="toggleActive(drink)" ng-class="{active:food.active}">
-								{{food.name}} - {{food.price | currency}}
+								{{food.name}} 
 								<span class="plusminus" ng-click="removeOne(food)">&#45</span>
 								<span class="plusminus" ng-click="addOne(food)">&#43</span>
 								<!-- <span>{{food.quantity}}</span> -->
@@ -43,8 +43,8 @@
 					<div class="sides">
 						<ul>
 							<li ng-repeat="side in sides" ng-click="toggleActive(side)" ng-class="{active:food.active}">
-								{{side.name}} - {{side.sideprice | currency}}
-								<span class="plusminus" ng-click="removeOne(side)">&#45</span>
+								{{side.name}}
+								<span class="plusminus" ng-click="removeOneSide(side)">&#45</span>
 								<span class="plusminus" ng-click="addOneSide(side)">&#43</span>
 								<!-- <span>{{food.quantity}}</span> -->
 							</li>
@@ -56,19 +56,17 @@
 
 		<!-- CURRENT ORDER -->
 		<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder">
-			<form class="currentorder">
+			<form class="currentorder" ng-submit="sendOrder()">
 				<h1>Current Order</h1>
 				<ul>
 					<li ng-repeat="order in order track by $index"> 
-						{{order.name}} - {{order.price | currency}}
-						<span class="plusminus" ng-click="removeOne(order)">&#45</span>
+						{{order.name}} <a ng-repeat="side in order.sides"> + {{side.name}} </a> - {{order.price + order.sides[0].price + order.sides[1].price | currency}}
+						<span class="plusminus" ng-click="removeOne(order)">&#88</span>
 					</li>
 				</ul>
-				<div class="total">
-					Total: {{totalq()}} items <span>{{total() | currency}}</span> 
-				</div>
+				<button type="submit" class="btn btn-success closeDiv">Place Order</button>
 			</form>
-			<a href="#" class="btn btn-success closeDiv" role="button">Place Order</a>
-			<a href="/bill" class="btn btn-danger closeDiv" role="button" ng-click="send();">Finalize Bill</a>
+			<a href="#" class="btn btn-success closeDiv" role="button" ng-click="send()">Place Order</a>
+			<a href="/bill" class="btn btn-danger closeDiv" role="button" >Finalize Bill</a>
 		</div>
 </div>

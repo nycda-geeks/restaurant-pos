@@ -1,7 +1,8 @@
 angular.module('restaurantPOS')
-	.controller('newOrderController', ['$scope', '$http','$location', 'shareOrder', function($scope, $http, $location, shareOrder) {
+	.controller('newOrderController', ['$scope', '$http','$location', function($scope, $http, $location) {
 		$scope.menuitems = [
 			{
+				id: 1,
 				name: 'Heinekin',
 				price: 2,
 				amountofsides: 0,
@@ -11,6 +12,7 @@ angular.module('restaurantPOS')
 				isveggie: false,
 				isvegan: false
 			}, {
+				id: 2,
 				name: 'Amstel',
 				price: 2,
 				amountofsides: 0,
@@ -20,6 +22,7 @@ angular.module('restaurantPOS')
 				isveggie: false,
 				isvegan: false
 			}, {
+				id: 3,
 				name: 'Berliner',
 				price: 3,
 				amountofsides: 0,
@@ -29,6 +32,7 @@ angular.module('restaurantPOS')
 				isveggie: false,
 				isvegan: false
 			}, {
+				id: 4,
 				name: 'Pizza',
 				price: 4,
 				amountofsides: 2,
@@ -38,6 +42,7 @@ angular.module('restaurantPOS')
 				isveggie: false,
 				isvegan: false
 			}, {
+				id: 5,
 				name: 'Calzone',
 				price: 4.50,
 				amountofsides: 1,
@@ -47,6 +52,7 @@ angular.module('restaurantPOS')
 				isveggie: false,
 				isvegan: false
 			}, {
+				id: 6,
 				name: 'Spaghetti',
 				price: 6,
 				amountofsides: 2,
@@ -56,6 +62,7 @@ angular.module('restaurantPOS')
 				isveggie: false,
 				isvegan: false
 			}, {
+				id: 7,
 				name: 'Fries',
 				price: 2,
 				amountofsides: 0,
@@ -65,6 +72,7 @@ angular.module('restaurantPOS')
 				isveggie: false,
 				isvegan: false
 			}, {
+				id: 8,
 				name: 'Bread',
 				price: 2,
 				amountofsides: 0,
@@ -75,6 +83,18 @@ angular.module('restaurantPOS')
 				isvegan: false
 			}
 		];
+
+		//GET MENU 
+		$http.get('/v1/menu').then(function(res) {
+			$scope.menuitems = res.data;
+		});
+
+		//SEND ORDER
+		$scope.sendOrder = function() {
+			$http.post('/v1/tables/:id', data).success(function(data, status) {
+				$scope.order = data;
+			})
+		};
 
 		//LIST OF DRINKS
 		$scope.drink = function() {
@@ -123,7 +143,7 @@ angular.module('restaurantPOS')
 
 		//ADD PRODUCT TO ORDER
 		$scope.addOne = function(m) {
-			var order = {name: m.name, price: m.price};
+			var order = {name: m.name, price: m.price, menuitemId: m.id, amountofsides: m.amountofsides, sides: []};
 			$scope.order.push(order);
 
 			if (m.amountofsides > 0) {
@@ -133,8 +153,12 @@ angular.module('restaurantPOS')
 
 		//ADD SIDE-DISH TO MEAL ORDER
 		$scope.addOneSide = function(m) {
-			var order= {name: m.name, price: m.sideprice};
-			$scope.order.push(order);
+			var sideorder = {name: m.name, price: m.sideprice, menuitemId: m.id};
+
+			if ($scope.order[$scope.order.length - 1].sides.length < $scope.order[$scope.order.length - 1].amountofsides) {
+				$scope.order[$scope.order.length - 1].sides.push(sideorder);
+			}
+			
 		}
 
 		//REMOVE PRODUCT FROM ORDER
@@ -146,6 +170,12 @@ angular.module('restaurantPOS')
 				}
 			}
 		};
+
+		//REMOVE SIDE-DISH FROM MEAL ORDER
+		$scope.removeOneSide = function(m) {
+			$scope.order[$scope.order.length - 1].sides.pop();
+		};
+		
 
 		//TOTAL PRICE OF ORDER
 		$scope.total = function() {
@@ -165,13 +195,14 @@ angular.module('restaurantPOS')
 			return totalq;
 		};
 
-		$scope.send = function() {
-			shareOrder.sendOrder($scope.order);
-		}
 		/*
 		$scope.send = function() {
 			dataShare.sendData($scope.order);
 			$location.path('/bill');
+		};
+
+				$scope.send = function() {
+			shareOrder.sendOrder($scope.order);
 		};
 		*/
 

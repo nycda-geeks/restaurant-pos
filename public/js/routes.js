@@ -22,10 +22,18 @@ angular.module('routes', ["ui.router"])
 					templateUrl: '/public/views/bill.html',
 					controller: 'billController'
 				})
+				.state('kitchen', {
+					url:'/kitchen',
+					templateUrl: '/public/views/kitchen.html',
+					controller: 'kitchenController'
+				})
 				
 
 			$locationProvider.html5Mode(true);
 }])
+
+
+/*
 	.factory('shareOrder', function() {
 		var list = [];
 
@@ -44,8 +52,6 @@ angular.module('routes', ["ui.router"])
 			return list;
 		}
 	})
-
-/*
 	.factory('dataShare', function($rootScope, $timeout) {
 		var service = [];
 		service.data = false;

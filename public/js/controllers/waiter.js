@@ -19,6 +19,10 @@ angular.module('restaurantPOS')
 			}
 		];
 
+		$http.get('/v1/tables').then(function(res) {
+			$scope.tables = res.data;
+		})
+
 		$scope.favtables = [];
 
 		$scope.add = function(index) {
