@@ -3,8 +3,9 @@ module.exports = function(sequelize, DataTypes) {
 		name: DataTypes.STRING,
 		category: DataTypes.STRING,
 		price: DataTypes.FLOAT,
+		amountofsides: DataTypes.INTEGER,
 		isside: DataTypes.BOOLEAN,
-		singleprice: DataTypes.FLOAT,
+		sideprice: DataTypes.FLOAT,
 		isdrink: DataTypes.BOOLEAN,
 		isveggie: DataTypes.BOOLEAN,
 		isvegan: DataTypes.BOOLEAN

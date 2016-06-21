@@ -1,0 +1,36 @@
+## API Design
+
+# Features
+
+Create and edit menu
+Create and edit users (user management platform)
+Login handling
+Create and edit tables
+
+Place orders
+View orders
+Change status of orders
+Review orders
+
+Process payment
+Create receipt
+
+
+# GET
+
+View Orders
+	Input:
+		User Instance (includes ClientID) required
+		Input Filter required
+		Output Filter
+
+	Output:
+		JSON
+
+Get Restaurant Info
+	Included data:
+		Client instance
+		Tables
+
+
+# POST

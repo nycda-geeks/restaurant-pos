@@ -22,11 +22,8 @@ db.sequelize.sync()
 			sortOrders(orders, function(order){
 				console.log(order)
 			})
-
 		})
-
 	})
-
 })
 
 

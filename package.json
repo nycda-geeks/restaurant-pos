@@ -17,8 +17,17 @@
   },
   "homepage": "https://github.com/nycda-geeks/restaurant-pos#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "pg": "^5.1.0",
+    "pg-hstore": "^2.3.2",
+    "sendgrid": "^3.0.5",
     "sequelize": "^3.23.3"
   }
 }

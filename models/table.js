@@ -8,7 +8,8 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		classMethods: {
 			associate: function(models) {
-				Table.belongsTo(models.Client, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
+				Table.belongsTo(models.Client, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' }),
+				Table.hasMany(models.Customer)
 			}
 		}
 	});
