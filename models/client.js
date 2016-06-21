@@ -1,6 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
 	var Client = sequelize.define("Client", {
 		name: DataTypes.STRING,
+		friendlyname: DataTypes.STRING,
 		description: DataTypes.TEXT,
 		logo: DataTypes.STRING
 	}, {

@@ -8,8 +8,40 @@ module.exports = function(passport){
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, password, done) {
-
+        	console.log('signup triggered')
         	findOrCreateUser = function(){
+        		console.log('findOrCreateUser triggered')
+        		console.log(req.body)
+        		
+        		// NEW
+        		db.Client.find({ where: {'name': req.body.name }}).then(function(client) {
+        			if (client) {
+        				console.log('Client already exists: ' + client.name + ' , ClientID: ' + client.id)
+        				return done(null, false, req.flash('message','User Already Exists'));
+        			} else {
+        				console.log('client does not exist, must create')
+        				var newclient = {
+        					'name': req.body.name
+        				}
+        				if (req.body.description) {
+        					newclient.description = req.body.description
+        				}
+        				/*
+        				db.Client.create(newclient).then(function(client) {
+        					client.createUser({
+        						'username': username,
+        						'password': createHash(password),
+        						'email': 'luigi@gmx.de',
+        						'firstname': 'Luigi',
+        						'lastname': 'Mario'
+        					})
+
+        				})
+        				*/
+        			}
+        		})
+				
+				/*
         		db.User.find({ where: {'username' :  username }}).then(function(user) {
                     // already exists
                     if (user) {
@@ -31,14 +63,16 @@ module.exports = function(passport){
                         });
                     }
                 });
+                */
         	};
 
-        	process.nextTick(findOrCreateUser);
+        	findOrCreateUser();
         })
-    );
+	);
     // Generates hash using bCrypt
     var createHash = function(password){
-    	return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+    	return password;
+    	//return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
     }
 
 }

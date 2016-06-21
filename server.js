@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyparser = require("body-parser");
+var cookieparser = require('cookie-parser');
 var path = require('path');
 
 var db = require("./models");
@@ -14,22 +15,55 @@ db.sequelize.sync().then(function() {
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
+app.use(cookieparser());
 
+// configure auth and session
+var passport = require('passport');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+var LocalStrategy = require('passport-local').Strategy;
 
+// initialize authentication and sessions
+app.use(session({
+	secret: 'secretsecret', 
+	resave: false, 
+	saveUninitialized: false,
+	// using redis for session storage here. if no redis server available, change 'store' to use another sessionstore.
+	store: new RedisStore({
+		url: process.env.REDIS_URL
+	}) 
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+var flash = require('connect-flash');
+app.use(flash());
+
+// init passport
+var initPassport = require('./passport/init');
+initPassport(passport);
 
 // make stuff accessible to our router
 app.use(function(req,res,next){
+    //res.locals.session = req.session;
 	req.db = db;
     next();
 });
 
+// check for authentication
+var isAuthenticated = function (req, res, next) {
+	if (req.isAuthenticated())
+		return next();
+	res.send('you are not authenticated bro')
+}
+
 // static content and routes setup
-var route_index = require('./routes/index');
+var route_index = require('./routes/index')(passport);
 var route_api = require('./routes/api');
-var route_app = require('./routes/app');
+
+app.use('/app', isAuthenticated, express.static('./test/'));
 app.use('/', express.static('./public/'));
 app.use('/v1', route_api);
-app.use('/app', route_app);
 app.use('/', route_index);
 
 /// catch 404 and forwarding to error handler

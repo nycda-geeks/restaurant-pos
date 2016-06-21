@@ -8,7 +8,7 @@ module.exports = function(passport){
             passReqToCallback : true
         },
         function(req, username, password, done) { 
-        	db.User.find({ where: {'username' :  username }}).then(
+        	db.User.find({ where: {'username' :  username}}).then(
         		function(user) {
         			if (!user){
                         console.log('User Not Found with username '+username);
@@ -33,7 +33,12 @@ module.exports = function(passport){
 
 
     var isValidPassword = function(user, password){
-        return bCrypt.compareSync(password, user.password);
+    	if (user.password == password) {
+    		return true
+    	} else {
+    		return false
+    	};
+        //return bCrypt.compareSync(password, user.password);
     }
     
 }
