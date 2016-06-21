@@ -21,18 +21,15 @@ app.use(cookieparser());
 // configure auth and session
 var passport = require('passport');
 var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
 var LocalStrategy = require('passport-local').Strategy;
 
 // initialize authentication and sessions
 app.use(session({
 	secret: 'secretsecret', 
 	resave: false, 
-	saveUninitialized: false,
+	saveUninitialized: false
 	// using redis for session storage here. if no redis server available, change 'store' to use another sessionstore.
-	store: new RedisStore({
-		url: process.env.REDIS_URL
-	}) 
+
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -63,9 +60,11 @@ var route_index = require('./routes/index')(passport);
 var route_api = require('./routes/api');
 
 app.use('/app', isAuthenticated, express.static('./angularApp/'));
+
 app.use('/', function(req, res) {
 	res.sendfile(__dirname + '/public/index.html');
 });
+
 app.use('/v1', route_api);
 app.use('/', route_index);
 
