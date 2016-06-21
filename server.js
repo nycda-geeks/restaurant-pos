@@ -62,10 +62,13 @@ var isAuthenticated = function (req, res, next) {
 var route_index = require('./routes/index')(passport);
 var route_api = require('./routes/api');
 
-app.use('/app', isAuthenticated, express.static('./test/'));
-app.use('/', express.static('./public/'));
+app.use('/app', isAuthenticated, express.static('./angularApp/'));
+app.use('/', function(req, res) {
+	res.sendfile(__dirname + '/public/index.html');
+});
 app.use('/v1', route_api);
 app.use('/', route_index);
+
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
