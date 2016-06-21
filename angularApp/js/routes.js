@@ -3,7 +3,7 @@ angular.module('routes', ["ui.router"])
 		function($stateProvider, $urlRouterProvider, $locationProvider) {
 			$stateProvider
 				.state('home', {
-					url: '/',
+					url: '/home',
 					templateUrl:'/public/views/waiter.html',
 					controller: 'WaiterController'
 				})
@@ -27,7 +27,14 @@ angular.module('routes', ["ui.router"])
 					templateUrl: '/public/views/kitchen.html',
 					controller: 'kitchenController'
 				})
-				
+				.state('login', {
+					url:'/login',
+					templateUrl: '/public/views/login.html'
+				})
+				.state('register', {
+					url:'/',
+					templateUrl: '/public/views/register.html'
+				})
 
 			$locationProvider.html5Mode(true);
 }])

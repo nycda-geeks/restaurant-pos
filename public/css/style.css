@@ -29,6 +29,15 @@ section, footer, header, aside, nav{
 	display: block;
 }
 
+.navbar-default {
+	background-color: #61a1bc;
+	color: #fff;
+}
+
+.navbar-default a {
+	color: #fff !important;
+}
+
 /*-------------------------
 	The order form
 --------------------------*/
@@ -124,4 +133,16 @@ a.closeDiv {
 
 .currentOrder {
 	margin-bottom: 100px;
+}
+
+/*-------------------- 
+LOGIN FORM
+--------------------*/
+
+.login {
+	padding: 10px;
+}
+
+label {
+	color: #fff;
 }
