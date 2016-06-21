@@ -5,7 +5,7 @@ var router = express.Router();
 var isAuthenticated = function (req, res, next) {
 	if (req.isAuthenticated())
 		return next();
-	res.redirect('/login');
+	res.send('you are not authenticated');
 }
 
 module.exports = function(passport){

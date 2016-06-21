@@ -4,17 +4,17 @@ angular.module('restaurantPOS', ['ui.router'])
 				$stateProvider
 					.state('home', {
 						url: '/',
-						templateUrl:'/public/views/landingpage.html',
+						templateUrl:'/views/landingpage.html',
 						controller: 'MainController'
 					})
 					.state('register', {
 						url: '/register',
-						templateUrl:'/public/views/register.html',
+						templateUrl:'/views/register.html',
 						controller: 'MainController',
 					})
 					.state('login', {
 						url: '/login',
-						templateUrl:'/public/views/login.html',
+						templateUrl:'/views/login.html',
 						controller: 'MainController'
 					})
 
