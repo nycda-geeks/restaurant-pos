@@ -24,6 +24,12 @@ module.exports = function(passport){
 		failureFlash : false
 	}));
 
+	// GET Logout page
+	router.get('/logout', function(req, res) {
+		req.logout();
+		res.redirect('/');
+	});
+	
 	// GET Test page
 	router.get('/testmail', function(req, res) {
 		console.log('send email')
