@@ -8,7 +8,7 @@ angular.module('routes', ["ui.router"])
 					controller: 'WaiterController'
 				})
 				.state('order', {
-					url: '/app/order',
+					url: '/app/order/:id',
 					templateUrl:'/app/views/newOrder.html',
 					controller: 'newOrderController',
 				})
@@ -27,16 +27,8 @@ angular.module('routes', ["ui.router"])
 					templateUrl: '/app/views/kitchen.html',
 					controller: 'kitchenController'
 				})
-				.state('login', {
-					url:'/login',
-					templateUrl: '/app/views/login.html'
-				})
-				.state('register', {
-					url:'/',
-					templateUrl: '/app/views/register.html'
-				})
 				.state('logout', {
-					url:'/app/logout',
+					url:'/logout',
 
 				})
 

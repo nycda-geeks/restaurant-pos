@@ -1,6 +1,6 @@
 <div class="col-md-12 col-sm-12" ng-controller="newOrderController">
 		<h1>Create A New Order</h1>
-		<p>{{food}}</p>
+		<p>{{params}}</p>
 		<!-- DRINKS -->
 		<div class="col-md-6 col-md-offset-3 col-sm-12">
 			<form>
@@ -20,7 +20,7 @@
 
 		<div class="row">
 			<!-- FOOD -->
-			<div class="col-md-6 col-md-offset-3 col-sm-12" ng-repeat="foodPerCategory in foodToFilter() | filter: filterCategories()">
+			<div class="col-md-6 col-md-offset-3 col-sm-12" ng-repeat="foodPerCategory in foodToFilter() | filter: filterCategories">
 				<form>
 					<h1>{{foodPerCategory.category}}</h1>
 					<div class="food">
@@ -39,7 +39,7 @@
 			<div class="col-md-3" ng-hide="addside">
 				<form>
 					<span><a href="#" ng-click="addside = true" class="closeDiv">&times</a></span>
-					<h1>Sides</h1>
+					<h1>Choose Sides</h1>
 					<div class="sides">
 						<ul>
 							<li ng-repeat="side in sides" ng-click="toggleActive(side)" ng-class="{active:food.active}">
@@ -56,7 +56,7 @@
 
 		<!-- CURRENT ORDER -->
 		<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder">
-			<form class="currentorder" ng-submit="sendOrder()">
+			<form class="currentorder" ng-submit="sendOrder()" name="postOrder">
 				<h1>Current Order</h1>
 				<ul>
 					<li ng-repeat="order in order track by $index"> 
@@ -66,7 +66,7 @@
 				</ul>
 				<button type="submit" class="btn btn-success closeDiv">Place Order</button>
 			</form>
-			<a href="#" class="btn btn-success closeDiv" role="button" ng-click="send()">Place Order</a>
+
 			<a href="/bill" class="btn btn-danger closeDiv" role="button" >Finalize Bill</a>
 		</div>
 </div>

@@ -1,23 +1,5 @@
 angular.module('restaurantPOS')
 	.controller('WaiterController', ['$scope', '$http', function($scope, $http) {
-		$scope.table = [
-			{
-				table_number: 1,
-				table_isfree: true
-			}, {
-				table_number: 2,
-				table_isfree: true
-			}, {
-				table_number: 3,
-				table_isfree: true
-			}, {
-				table_number: 4,
-				table_isfree: true
-			}, {
-				table_number: 5,
-				table_isfree: false
-			}
-		];
 
 		$http.get('/v1/tables').then(function(res) {
 			$scope.tables = res.data;

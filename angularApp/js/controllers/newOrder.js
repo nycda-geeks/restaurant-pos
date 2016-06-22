@@ -1,88 +1,8 @@
 angular.module('restaurantPOS')
 	.controller('newOrderController', ['$scope', '$http','$location', function($scope, $http, $location) {
-		$scope.menuitem = [
-			{
-				id: 1,
-				name: 'Heinekin',
-				price: 2,
-				amountofsides: 0,
-				isside: false,
-				sideprice: 0,
-				isdrink: true,
-				isveggie: false,
-				isvegan: false
-			}, {
-				id: 2,
-				name: 'Amstel',
-				price: 2,
-				amountofsides: 0,
-				isside: false,
-				sideprice: 0,
-				isdrink: true,
-				isveggie: false,
-				isvegan: false
-			}, {
-				id: 3,
-				name: 'Berliner',
-				price: 3,
-				amountofsides: 0,
-				isside: false,
-				sideprice: 0,
-				isdrink: true,
-				isveggie: false,
-				isvegan: false
-			}, {
-				id: 4,
-				name: 'Pizza',
-				price: 4,
-				amountofsides: 2,
-				isside: false,
-				sideprice: 0,
-				isdrink: false,
-				isveggie: false,
-				isvegan: false
-			}, {
-				id: 5,
-				name: 'Calzone',
-				price: 4.50,
-				amountofsides: 1,
-				isside: false,
-				sideprice: 0,
-				isdrink: false,
-				isveggie: false,
-				isvegan: false
-			}, {
-				id: 6,
-				name: 'Spaghetti',
-				price: 6,
-				amountofsides: 2,
-				isside: false,
-				sideprice: 0,
-				isdrink: false,
-				isveggie: false,
-				isvegan: false
-			}, {
-				id: 7,
-				name: 'Fries',
-				price: 2,
-				amountofsides: 0,
-				isside: true,
-				sideprice: 1,
-				isdrink: false,
-				isveggie: false,
-				isvegan: false
-			}, {
-				id: 8,
-				name: 'Bread',
-				price: 2,
-				amountofsides: 0,
-				isside: true,
-				sideprice: 1,
-				isdrink: false,
-				isveggie: false,
-				isvegan: false
-			}
-		];
+
+		//TABLE NUMBER FROM URL
+		$scope.params = $location.path().split('/')[3] || "Unknown";
 
 		//GET MENU 
 		$http.get('/v1/menu').then(function(res) {
@@ -91,9 +11,18 @@ angular.module('restaurantPOS')
 
 		//SEND ORDER
 		$scope.sendOrder = function() {
-			$http.post('/v1/tables/:id', data).success(function(data, status) {
-				$scope.order = data;
-			})
+			var data = $scope.order;
+			/*
+			$http.post('/v1/tables/' + $scope.params, data).success(function(data, status) {
+				
+			});*/
+ 
+			$http({
+			    method: 'POST',
+			    url: '/v1/tables/' + $scope.params,
+			    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+			    data: data
+			}).success(function () {});
 		};
 
 		//LIST OF DRINKS
@@ -139,6 +68,7 @@ angular.module('restaurantPOS')
 		//LIST OF CURRENT ORDER
 		$scope.order = [];
 
+		console.log($scope.order);
 		//VALUE FOR NG-HIDE SIDE-DISH SELECTOR DIV
 		$scope.addside = true;
 
@@ -203,10 +133,10 @@ angular.module('restaurantPOS')
 			return $scope.food;
 		}
 
-		$scope.filterCategories = function(category) {
-			var categoryNew = indexedFood.indexOf($scope.food.category) == -1;
+		$scope.filterCategories = function(food) {
+			var categoryNew = indexedFood.indexOf(food.category) == -1;
 			if (categoryNew) {
-				indexedFood.push($scope.food.category);
+				indexedFood.push(food.category);
 			}
 			return categoryNew;
 		}
