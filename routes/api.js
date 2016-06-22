@@ -110,10 +110,16 @@ var filter = {
 */
 
 
-router.get('/menu/', function(req, res) {
-	var testuser = { ClientId: 1, id: 1}
+// GET Test page
+router.get('/orders/', function(req, res) {
+	getOrders(req.db, req.user, '', function(err, data) {
+		res.send(data)
+	})
+	
+});
 
-	getMenu(req.db, testuser, '', function(err, data) {
+router.get('/menu/', function(req, res) {
+	getMenu(req.db, req.user, '', function(err, data) {
 		res.send(data)
 	})
 });
@@ -123,19 +129,16 @@ router.get('/menu/refresh', function(req, res) {
 });
 
 router.get('/tables/', function(req, res) {
-	var testuser = { ClientId: 1, id: 1}
-
-	getTables(req.db, testuser, '', function(err, data) {
+	getTables(req.db, req.user, '', function(err, data) {
 		res.send(data)
 	})
 });
 
 // GET Test page
 router.get('/tables/:id', function(req, res) {
-	var testuser = { ClientId: 1, id: 1}
 	var filter = { where: {'number': req.params.id}}
 
-	getTables(req.db, testuser, filter, function(err, data) {
+	getTables(req.db, req.user, filter, function(err, data) {
 		if (err) throw err;
 
 		if (data[0].isfree == false) {
@@ -157,7 +160,7 @@ router.get('/tables/:id', function(req, res) {
 				} 
 			}
 
-			getTables(req.db, testuser, filter, function(err, data) {
+			getTables(req.db, req.user, filter, function(err, data) {
 				res.send(data)
 			})
 		} else {
@@ -166,6 +169,7 @@ router.get('/tables/:id', function(req, res) {
 	})
 });
 
+// POST place orders for tables
 router.post('/tables/:id', function(req, res) {
 	// place order on table
 	console.log('post received')
@@ -318,21 +322,6 @@ router.post('/tables/:id', function(req, res) {
 
 });
 
-
-// GET Test page
-router.get('/orders/', function(req, res) {
-	var testuser = { ClientId: 1, id: 1}
-
-	var example = {
-		waiter: 2
-	}
-
-
-	getOrders(req.db, testuser, example, function(err, data) {
-		res.send(data)
-	})
-	
-});
 
 
 

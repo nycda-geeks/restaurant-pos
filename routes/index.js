@@ -33,7 +33,7 @@ module.exports = function(passport){
 	});
 
 	router.get('/auth', isAuthenticated, function(req, res) {
-		res.send('authenticated user: ' + req.user.username)
+		res.send('authenticated user: ' + req.user.username + ', restaurant id: ' + req.user.ClientId)
 	});
 	return router;
 };
