@@ -1,6 +1,6 @@
 angular.module('restaurantPOS')
 	.controller('newOrderController', ['$scope', '$http','$location', function($scope, $http, $location) {
-		$scope.menuitems = [
+		$scope.menuitem = [
 			{
 				id: 1,
 				name: 'Heinekin',
@@ -109,6 +109,7 @@ angular.module('restaurantPOS')
 
 		$scope.drinks = $scope.drink();
 
+		
 		//LIST OF FOOD
 		$scope.grub = function() {
 			var food = [];
@@ -120,7 +121,7 @@ angular.module('restaurantPOS')
 			return food;
 		};
 
-		$scope.food = $scope.grub();
+		$scope.food = $scope.grub(); 
 
 		//LIST OF SIDES
 		$scope.side = function() {
@@ -194,6 +195,21 @@ angular.module('restaurantPOS')
 			});
 			return totalq;
 		};
+
+		var indexedFood = [];
+
+		$scope.foodToFilter = function() {
+			indexedFood = [];
+			return $scope.food;
+		}
+
+		$scope.filterCategories = function(category) {
+			var categoryNew = indexedFood.indexOf($scope.food.category) == -1;
+			if (categoryNew) {
+				indexedFood.push($scope.food.category);
+			}
+			return categoryNew;
+		}
 
 		/*
 		$scope.send = function() {

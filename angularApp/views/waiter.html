@@ -4,13 +4,13 @@
 	<div class="tablesfav">
 		<p>My Tables:</p>
 		<ul>
-			<li class="tables" ng-repeat="table in favtables"><a ui-sref="order">Table {{table.table_number}}</a><span ng-click="remove($index)"><a href='#'>&#45</a></span></li>
+			<li class="tables" ng-repeat="table in favtables" ng-class="{active:table.isfree}"><a ui-sref="order">Table {{table.number}}</a><span ng-click="remove($index)"><a href='#'>&#45</a></span></li>
 		</ul>
 	</div>
 	<div class="tablesall">
 		<p>Remaining Tables:</p>
 		<ul>
-			<li class="tables" ng-repeat="table in tables"><a ui-sref="order">Table {{table.table_number}}</a><span ng-click="add($index)"><a href='#'>&#43</a></span></li>
+			<li class="tables" ng-repeat="table in tables" ng-class="{active:table.isfree}"><a ui-sref="order">Table {{table.number}}</a><span ng-click="add($index)"><a href='#'>&#43</a></span></li>
 		</ul>
 	</div>
 </div>

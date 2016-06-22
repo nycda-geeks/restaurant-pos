@@ -1,6 +1,6 @@
 angular.module('restaurantPOS')
 	.controller('WaiterController', ['$scope', '$http', function($scope, $http) {
-		$scope.tables = [
+		$scope.table = [
 			{
 				table_number: 1,
 				table_isfree: true

@@ -135,6 +135,10 @@ a.closeDiv {
 	margin-bottom: 100px;
 }
 
+ul li.active {
+	background-color: #8ec16d;
+}
+
 /*-------------------- 
 LOGIN FORM
 --------------------*/

@@ -1,6 +1,6 @@
 <div class="col-md-12 col-sm-12" ng-controller="newOrderController">
 		<h1>Create A New Order</h1>
-
+		<p>{{food}}</p>
 		<!-- DRINKS -->
 		<div class="col-md-6 col-md-offset-3 col-sm-12">
 			<form>
@@ -20,12 +20,12 @@
 
 		<div class="row">
 			<!-- FOOD -->
-			<div class="col-md-6 col-md-offset-3 col-sm-12">
+			<div class="col-md-6 col-md-offset-3 col-sm-12" ng-repeat="foodPerCategory in foodToFilter() | filter: filterCategories()">
 				<form>
-					<h1>Food</h1>
+					<h1>{{foodPerCategory.category}}</h1>
 					<div class="food">
 						<ul>
-							<li ng-repeat="food in food" ng-click="toggleActive(drink)" ng-class="{active:food.active}">
+							<li ng-repeat="food in food | filter: {category: foodPerCategory.category}" ng-click="toggleActive(drink)" ng-class="{active:food.active}">
 								{{food.name}} 
 								<span class="plusminus" ng-click="removeOne(food)">&#45</span>
 								<span class="plusminus" ng-click="addOne(food)">&#43</span>

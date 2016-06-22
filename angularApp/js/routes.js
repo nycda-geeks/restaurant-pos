@@ -3,27 +3,27 @@ angular.module('routes', ["ui.router"])
 		function($stateProvider, $urlRouterProvider, $locationProvider) {
 			$stateProvider
 				.state('home', {
-					url: '/home',
+					url: '/app/',
 					templateUrl:'/app/views/waiter.html',
 					controller: 'WaiterController'
 				})
 				.state('order', {
-					url: '/order',
+					url: '/app/order',
 					templateUrl:'/app/views/newOrder.html',
 					controller: 'newOrderController',
 				})
 				.state('order.sides', {
-					url: '/sides',
+					url: '/app/sides',
 					templateUrl:'/app/views/sides.html',
 					controller: 'newOrderController'
 				})
 				.state('bill', {
-					url: '/bill',
+					url: '/app/bill',
 					templateUrl: '/app/views/bill.html',
 					controller: 'billController'
 				})
 				.state('kitchen', {
-					url:'/kitchen',
+					url:'/app/kitchen',
 					templateUrl: '/app/views/kitchen.html',
 					controller: 'kitchenController'
 				})
@@ -34,6 +34,10 @@ angular.module('routes', ["ui.router"])
 				.state('register', {
 					url:'/',
 					templateUrl: '/app/views/register.html'
+				})
+				.state('logout', {
+					url:'/app/logout',
+
 				})
 
 			$locationProvider.html5Mode(true);
