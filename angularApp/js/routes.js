@@ -35,7 +35,6 @@ angular.module('routes', ["ui.router"])
 					url:'/',
 					templateUrl: '/app/views/register.html'
 				})
->>>>>>> bb8b605a24e3f4d0bae202a01da1cb7a19a6723c
 
 			$locationProvider.html5Mode(true);
 }])
