@@ -61,7 +61,7 @@ var route_api = require('./routes/api');
 
 app.use('/app', isAuthenticated, express.static('./angularApp/'));
 app.use('/', express.static('./public/'));
-app.use('/v1', route_api);
+app.use('/v1', isAuthenticated, route_api);
 app.use('/', route_index);
 
 /// catch 404 and forwarding to error handler

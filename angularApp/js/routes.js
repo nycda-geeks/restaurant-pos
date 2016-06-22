@@ -4,36 +4,36 @@ angular.module('routes', ["ui.router"])
 			$stateProvider
 				.state('home', {
 					url: '/home',
-					templateUrl:'/public/views/waiter.html',
+					templateUrl:'/app/views/waiter.html',
 					controller: 'WaiterController'
 				})
 				.state('order', {
 					url: '/order',
-					templateUrl:'/public/views/newOrder.html',
+					templateUrl:'/app/views/newOrder.html',
 					controller: 'newOrderController',
 				})
 				.state('order.sides', {
 					url: '/sides',
-					templateUrl:'/public/views/sides.html',
+					templateUrl:'/app/views/sides.html',
 					controller: 'newOrderController'
 				})
 				.state('bill', {
 					url: '/bill',
-					templateUrl: '/public/views/bill.html',
+					templateUrl: '/app/views/bill.html',
 					controller: 'billController'
 				})
 				.state('kitchen', {
 					url:'/kitchen',
-					templateUrl: '/public/views/kitchen.html',
+					templateUrl: '/app/views/kitchen.html',
 					controller: 'kitchenController'
 				})
 				.state('login', {
 					url:'/login',
-					templateUrl: '/public/views/login.html'
+					templateUrl: '/app/views/login.html'
 				})
 				.state('register', {
 					url:'/',
-					templateUrl: '/public/views/register.html'
+					templateUrl: '/app/views/register.html'
 				})
 
 			$locationProvider.html5Mode(true);
