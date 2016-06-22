@@ -24,6 +24,12 @@ module.exports = function(passport){
 		failureFlash : false
 	}));
 
+	// GET Logout page
+	router.get('/logout', function(req, res) {
+		req.logout();
+		res.redirect('/');
+	});
+	
 	// GET Test page
 	router.get('/testmail', function(req, res) {
 		console.log('send email')
@@ -33,7 +39,7 @@ module.exports = function(passport){
 	});
 
 	router.get('/auth', isAuthenticated, function(req, res) {
-		res.send('authenticated user: ' + req.user.username)
+		res.send('authenticated user: ' + req.user.username + ', restaurant id: ' + req.user.ClientId)
 	});
 	return router;
 };

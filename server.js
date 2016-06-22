@@ -60,15 +60,8 @@ var route_index = require('./routes/index')(passport);
 var route_api = require('./routes/api');
 
 app.use('/app', isAuthenticated, express.static('./angularApp/'));
-
-/*
-app.use('/', function(req, res) {
-	res.sendfile(__dirname + '/public/index.html');
-});
-*/
-
-app.use('/', express.static('./public/'));
 app.use('/v1', isAuthenticated, route_api);
+app.use('/', express.static('./public/'));
 app.use('/', route_index);
 
 
