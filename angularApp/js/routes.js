@@ -3,37 +3,29 @@ angular.module('routes', ["ui.router"])
 		function($stateProvider, $urlRouterProvider, $locationProvider) {
 			$stateProvider
 				.state('home', {
-					url: '/home',
-					templateUrl:'/public/views/waiter.html',
+					url: '/app',
+					templateUrl:'/views/waiter.html',
 					controller: 'WaiterController'
 				})
 				.state('order', {
-					url: '/order',
-					templateUrl:'/public/views/newOrder.html',
+					url: '/app/order',
+					templateUrl:'/views/newOrder.html',
 					controller: 'newOrderController',
 				})
 				.state('order.sides', {
-					url: '/sides',
-					templateUrl:'/public/views/sides.html',
+					url: '/app/sides',
+					templateUrl:'/views/sides.html',
 					controller: 'newOrderController'
 				})
 				.state('bill', {
-					url: '/bill',
-					templateUrl: '/public/views/bill.html',
+					url: '/app/bill',
+					templateUrl: '/views/bill.html',
 					controller: 'billController'
 				})
 				.state('kitchen', {
-					url:'/kitchen',
-					templateUrl: '/public/views/kitchen.html',
+					url:'/app/kitchen',
+					templateUrl: '/views/kitchen.html',
 					controller: 'kitchenController'
-				})
-				.state('login', {
-					url:'/login',
-					templateUrl: '/public/views/login.html'
-				})
-				.state('register', {
-					url:'/',
-					templateUrl: '/public/views/register.html'
 				})
 
 			$locationProvider.html5Mode(true);

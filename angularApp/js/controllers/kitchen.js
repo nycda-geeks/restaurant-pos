@@ -1,8 +1,17 @@
 angular.module('restaurantPOS')
-	.controller('kitchenController', ['$scope', '$http','shareOrder', function($scope, $http, shareOrder) {
+	.controller('kitchenController', ['$scope', '$http', function($scope, $http) {
 		$http.get('/').then(function(res) {
 			$scope.order = res.data;
-		})
+		});
+
+		// TOTAL QUANTITY OF ORDER
+		$scope.totalq = function() {
+			var totalq = 0;
+			angular.forEach($scope.order, function() {
+				totalq = totalq + 1;
+			});
+			return totalq;
+		};
 
 		/*
 		$scope.$on('data_shared', function() {
@@ -18,8 +27,6 @@ angular.module('restaurantPOS')
 			})
 		}
 		*/
-
-		$scope.order = shareOrder.getOrder();
 
 
 
