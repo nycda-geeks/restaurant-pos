@@ -3,30 +3,39 @@ angular.module('routes', ["ui.router"])
 		function($stateProvider, $urlRouterProvider, $locationProvider) {
 			$stateProvider
 				.state('home', {
-					url: '/app',
-					templateUrl:'/views/waiter.html',
+					url: '/home',
+					templateUrl:'/app/views/waiter.html',
 					controller: 'WaiterController'
 				})
 				.state('order', {
-					url: '/app/order',
-					templateUrl:'/views/newOrder.html',
+					url: '/order',
+					templateUrl:'/app/views/newOrder.html',
 					controller: 'newOrderController',
 				})
 				.state('order.sides', {
-					url: '/app/sides',
-					templateUrl:'/views/sides.html',
+					url: '/sides',
+					templateUrl:'/app/views/sides.html',
 					controller: 'newOrderController'
 				})
 				.state('bill', {
-					url: '/app/bill',
-					templateUrl: '/views/bill.html',
+					url: '/bill',
+					templateUrl: '/app/views/bill.html',
 					controller: 'billController'
 				})
 				.state('kitchen', {
-					url:'/app/kitchen',
-					templateUrl: '/views/kitchen.html',
+					url:'/kitchen',
+					templateUrl: '/app/views/kitchen.html',
 					controller: 'kitchenController'
 				})
+				.state('login', {
+					url:'/login',
+					templateUrl: '/app/views/login.html'
+				})
+				.state('register', {
+					url:'/',
+					templateUrl: '/app/views/register.html'
+				})
+>>>>>>> bb8b605a24e3f4d0bae202a01da1cb7a19a6723c
 
 			$locationProvider.html5Mode(true);
 }])

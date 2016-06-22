@@ -68,7 +68,7 @@ app.use('/', function(req, res) {
 */
 
 app.use('/', express.static('./public/'));
-app.use('/v1', route_api);
+app.use('/v1', isAuthenticated, route_api);
 app.use('/', route_index);
 
 
