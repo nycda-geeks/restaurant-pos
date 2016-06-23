@@ -87,7 +87,35 @@ var getMenu = function(db, user, filter = {}, cb) {
 	})
 }
 
+var getUsers = function(db, user, filter = {}, cb) {
+	db.Client.findOne({'where': {'id': user.ClientId }}).then(function(client) {
+		client.getUsers(filter).then(function(users) {
+			cb(null, users)
+		})
+	})
+}
 
+var getRoles = function(db, user, filter = {}, cb) {
+	db.Role.findAll().then(function(roles) {
+			cb(null, roles)
+	})
+}
+
+var getClient = function(db, user, cb) {
+	db.Client.findOne({'where': {'id': user.ClientId }}).then(function(client) {
+		cb(null, client)
+	})
+}
+
+var checkManager = function(user, cb) {
+	if (user.RoleId == 1) {
+		// manager
+		cb(null, true)
+	} else {
+		// not manager
+		cb(null, false)
+	}
+}
 
 /*
 
@@ -109,6 +137,28 @@ var filter = {
 
 */
 
+// GET Users page
+router.get('/users/', function(req, res) {
+	getUsers(req.db, req.user, { 'include': {
+				model: db.Role,
+				attributes: ['name']
+			}}, function(err, data) {
+		res.send(data)
+	})
+});
+
+// GET Users page
+router.get('/users/:id', function(req, res) {
+	getUsers(req.db, req.user, {'where': {'id': req.params.id}}, function(err, data) {
+		res.send(data[0])
+	})
+});
+
+router.get('/roles/', function(req, res) {
+	getRoles(req.db, req.user, '', function(err, data) {
+		res.send(data)
+	})
+});
 
 // GET Test page
 router.get('/orders/', function(req, res) {
@@ -173,6 +223,38 @@ router.get('/tables/:id', function(req, res) {
 		}
 	})
 });
+
+// POST Create new users
+router.post('/users/', function(req, res) {
+	console.log(req.body)
+	// must be manager
+	var newuser = req.body
+	checkManager(req.user, function(err, isManager) {
+		if (isManager) {
+			console.log('requesting user is manager')
+			// validate data here
+			getClient(req.db, req.user, function(err, client) {
+				// found client
+				// not checking for existing user here, need to validate
+				client.createUser({
+					'username': newuser.username,
+					'password': newuser.password,
+					'email': newuser.email,
+					'firstname': newuser.firstname,
+					'lastname': newuser.lastname,
+					'RoleId': newuser.roleid
+				}).then(function (user) {
+					console.log('created new user ' + user.username)
+					res.sendStatus(200)
+				})
+			})
+		} else {
+			console.log('requesting user is not manager')
+			res.sendStatus(403)
+		}
+	})
+});
+
 
 // POST place orders for tables
 router.post('/tables/:id', function(req, res) {
