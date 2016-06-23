@@ -60,9 +60,14 @@ var route_index = require('./routes/index')(passport);
 var route_api = require('./routes/api');
 
 app.use('/app', isAuthenticated, express.static('./angularApp/'));
-app.use('/v1', isAuthenticated, route_api);
+app.use('/v1', route_api);
 app.use('/', express.static('./public/'));
 app.use('/', route_index);
+
+// send angular page for * to enable html5mode (routing through angular)
+app.all('/app/*', isAuthenticated, function(req, res) {
+    res.sendfile('./angularApp/index.html');
+  });
 
 
 /// catch 404 and forwarding to error handler

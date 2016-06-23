@@ -115,7 +115,12 @@ router.get('/orders/', function(req, res) {
 	getOrders(req.db, req.user, '', function(err, data) {
 		res.send(data)
 	})
-	
+});
+
+router.get('/orders/kitchen', function(req, res) {
+	getOrders(req.db, req.user, '', function(err, data) {
+		res.send(data)
+	})
 });
 
 router.get('/menu/', function(req, res) {
@@ -193,12 +198,14 @@ router.post('/tables/:id', function(req, res) {
 	var validateOrder = function(db, table, order, cb) {
 	/*
 		expected input:
-			order = [ {
-				menuitemId,
-				sides = [{menuitemId}]
-			} ]
+			{
+			order: [ {
+					menuitemId,
+					sides = [{menuitemId}]
+				} ]
 			if customer existing 
-				customerid = customerid
+			customerid: customerid
+			}
 
 		validation:
 			tableno must exist
@@ -237,8 +244,6 @@ router.post('/tables/:id', function(req, res) {
 										validated++
 									}
 								}
-
-
 							}
 						}
 					} else {
@@ -273,8 +278,10 @@ router.post('/tables/:id', function(req, res) {
 						validateOrderItems(client, order.order, function(err, success) {
 							if (success) {
 								console.log('validation successful')
+								cb(null, true)
 							} else {
 								console.log('validation not successful')
+								cb(null, false)
 							}
 
 						})
@@ -284,8 +291,10 @@ router.post('/tables/:id', function(req, res) {
 						validateOrderItems(client, order.order, function(err, success) {
 							if (success) {
 								console.log('validation successful')
+								cb(null, true)
 							} else {
 								console.log('validation not successful')
+								cb(null, false)
 							}
 
 						})
