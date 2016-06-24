@@ -1,15 +1,15 @@
 angular.module('restaurantPOS')
 	.controller('kitchenController', ['$scope', '$http', function($scope, $http) {
 		
-		$http.get('/v1/orders').then(function(res) {
+		$http.get('/v1/orders/kitchen').then(function(res) {
 			$scope.order = res.data;
 		});
 
 
 		$scope.orderitems = function() {
 			var orderItems = [];
-			angular.forEach($scope.order, function(m) {
-				orderItems.push(m.MenuItems);
+			angular.forEach($scope.order.MenuItems, function(m) {
+				orderItems.push(m);
 			});
 			return orderItems;
 		};
@@ -47,6 +47,7 @@ angular.module('restaurantPOS')
 			}
 			return categoryNew;
 		}
+
 
 		/*
 		$scope.$on('data_shared', function() {
