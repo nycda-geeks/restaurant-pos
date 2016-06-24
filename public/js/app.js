@@ -1,4 +1,4 @@
-angular.module('restaurantPOS', ['ui.router', 'ngdemo.services'])
+angular.module('restaurantPOS', ['ui.router', 'usermgmt.services'])
 	.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
 			function($stateProvider, $urlRouterProvider, $locationProvider) {
 				$stateProvider
@@ -31,6 +31,11 @@ angular.module('restaurantPOS', ['ui.router', 'ngdemo.services'])
 						url: '/user-creation',
 						templateUrl:'/views/user-creation.html',
 						controller: 'UserCreationCtrl'
+					})
+					.state('menu-editor', {
+						url: '/menu-editor',
+						templateUrl:'/views/menu-editor.html',
+						controller: 'menuEditor'
 					})
 				$locationProvider.html5Mode(true);
 	}])

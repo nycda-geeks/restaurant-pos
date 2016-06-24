@@ -1,4 +1,4 @@
-var services = angular.module('ngdemo.services', ['ngResource']);
+var services = angular.module('usermgmt.services', ['ngResource']);
 
 services.factory('UsersFactory', function ($resource) {
     return $resource('/v1/users', {}, {
