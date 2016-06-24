@@ -68,6 +68,8 @@ app.use('/', route_index);
 app.get('/app/*', isAuthenticated, function(req, res) {
     res.sendfile('./angularApp/index.html');
   });
+
+// send angular page for * to enable html5mode (routing through angular)
 app.get('/*/', function(req, res) {
 	console.log('hit get /*/')
     res.sendfile('./public/index.html');

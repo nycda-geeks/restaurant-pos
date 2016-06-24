@@ -24,8 +24,9 @@ angular.module('restaurantPOS')
 
 			$scope.users = UsersFactory.query();
 	}])
-	.controller('UserDetailCtrl', ['$scope', '$stateParams', 'UserFactory', '$location',
-	function ($scope, $stateParams, UserFactory, $location) {
+	.controller('UserDetailCtrl', ['$scope', '$stateParams', 'UserFactory', 'RolesFactory', '$location',
+	function ($scope, $stateParams, UserFactory, RolesFactory, $location) {
+        $scope.roles = RolesFactory.query();
         // callback for ng-click 'updateUser':
         $scope.updateUser = function () {
         	UserFactory.update($scope.user);
@@ -47,5 +48,10 @@ angular.module('restaurantPOS')
         $scope.createNewUser = function () {
             UsersFactory.create($scope.user);
             $location.path('/user-list');
-        }
+        };
+        
+        // callback for ng-click 'cancel':
+        $scope.cancel = function () {
+        	$location.path('/user-list');
+        };
     }]);

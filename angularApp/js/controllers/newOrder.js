@@ -20,7 +20,6 @@ angular.module('restaurantPOS')
 			$http({
 			    method: 'POST',
 			    url: '/v1/tables/' + $scope.params,
-			    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 			    data: data
 			}).success(function () {});
 		};
@@ -74,12 +73,17 @@ angular.module('restaurantPOS')
 
 		//ADD PRODUCT TO ORDER
 		$scope.addOne = function(m) {
-			var order = {name: m.name, price: m.price, menuitemId: m.id, amountofsides: m.amountofsides, sides: []};
-			$scope.order.push(order);
-
+			var order = {name: m.name, price: m.price, menuitemId: m.id};
+			
 			if (m.amountofsides > 0) {
+				order.amountofsides = m.amountofsides;
+				order.sides = []
 				$scope.addside = false;
+				$scope.order.push(order);
+			} else {
+				$scope.order.push(order);
 			}
+
 		};
 
 		//ADD SIDE-DISH TO MEAL ORDER
