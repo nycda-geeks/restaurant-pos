@@ -64,6 +64,17 @@ app.use('/v1', isAuthenticated, route_api);
 app.use('/', express.static('./public/'));
 app.use('/', route_index);
 
+// send angular page for * to enable html5mode (routing through angular)
+app.get('/app/*', isAuthenticated, function(req, res) {
+    res.sendfile('./angularApp/index.html');
+  });
+
+// send angular page for * to enable html5mode (routing through angular)
+app.get('/*/', function(req, res) {
+	console.log('hit get /*/')
+    res.sendfile('./public/index.html');
+  });
+
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

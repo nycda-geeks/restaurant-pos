@@ -20,7 +20,8 @@ db.sequelize.sync({force: true})
 
 	db.Client.create({
 		'name': 'Pizzeria Ciao',
-		'description': 'Great pizza, great prices'
+		'description': 'Great pizza, great prices',
+		'friendlyname': 'pizzeriaciao'
 	}).then(function(client) {
 
 		client.createUser({
@@ -28,7 +29,8 @@ db.sequelize.sync({force: true})
 			'password': 'luigi',
 			'email': 'luigi@gmx.de',
 			'firstname': 'Luigi',
-			'lastname': 'Mario'
+			'lastname': 'Manager',
+			'RoleId': 1 
 		})
 
 		client.createUser({
@@ -36,24 +38,28 @@ db.sequelize.sync({force: true})
 			'password': 'mario',
 			'email': 'mario@gmx.de',
 			'firstname': 'Mario',
-			'lastname': 'Mario'
+			'lastname': 'Waiter',
+			'RoleId': 2 
 		})
 
 		client.createMenuItem({
 			'name': 'Pizza Salami',
 			'category': 'Pizza',
+			'number': 1,
 			'price': 6.50
 		})
 
 		client.createMenuItem({
 			'name': 'Pizza Ham',
 			'category': 'Pizza',
+			'number': 2,
 			'price': 7.00
 		})
 
 		client.createMenuItem({
 			'name': 'Steak 200g',
 			'category': 'Main courses',
+			'number': 4,
 			'price': 15.00,
 			'amountofsides': 2
 		})		
@@ -61,6 +67,7 @@ db.sequelize.sync({force: true})
 		client.createMenuItem({
 			'name': 'Fries',
 			'category': 'Sides',
+			'number': 5,
 			'isside': true,
 			'price': 3.50,
 			'sideprice': 0
@@ -69,6 +76,7 @@ db.sequelize.sync({force: true})
 		client.createMenuItem({
 			'name': 'Small Salad',
 			'category': 'Sides',
+			'number': 6,
 			'isside': true,
 			'price': 3.50,
 			'sideprice': 0,
@@ -78,6 +86,7 @@ db.sequelize.sync({force: true})
 		client.createMenuItem({
 			'name': 'Pizza Veggie',
 			'category': 'Pizza',
+			'number': 3,
 			'price': 9.00,
 			'isveggie': true
 		})
@@ -85,6 +94,7 @@ db.sequelize.sync({force: true})
 		client.createMenuItem({
 			'name': 'Coca-Cola 0.33l',
 			'category': 'Soft Drinks',
+			'number': 6,
 			'price': 2.50,
 			'isdrink': true
 		})
@@ -92,6 +102,7 @@ db.sequelize.sync({force: true})
 		client.createMenuItem({
 			'name': 'Sparkling Water 0.33l',
 			'category': 'Soft Drinks',
+			'number': 7,
 			'price': 1.50,
 			'isdrink': true
 		})
@@ -251,75 +262,6 @@ db.sequelize.sync({force: true})
 
 		}, 3000);
 
-
-		setTimeout(function() {
-			// wait 5 sec before create customer
-			client.getUsers({'where': {'username': 'luigi'}}).then(function(user){
-				
-				client.createCustomer({
-					'UserId': user[0].id,
-					'TableId': 2
-				}).then(function(customer) {
-					
-					db.Table.findOne({
-						'where': {'id': customer.TableId}
-					}).then(function(table) {
-						
-						table.update({
-							'isfree': false
-						}).then(function() {
-
-							client.createOrder({
-								CustomerId: customer.id,
-								UserId: user[0].id
-							}).then(function(order) {
-
-								// item2 with side - returning id
-								client.getMenuItems({
-									'where': {'name': 'Pizza Ham'}
-								}).then(function(menuitem) {
-									db.OrderItems.create({
-										status: 'ordered',
-										MenuItemId: menuitem[0].id,
-										OrderId: order.id
-									})
-								})
-
-								client.getMenuItems({
-									'where': {'name': 'Pizza Salami'}
-								}).then(function(menuitem) {
-									db.OrderItems.create({
-										status: 'ordered',
-										MenuItemId: menuitem[0].id,
-										OrderId: order.id
-									})
-								})
-
-								client.getMenuItems({
-									'where': {'name': 'Small Salad'}
-								}).then(function(menuitem) {
-									db.OrderItems.create({
-										status: 'ordered',
-										MenuItemId: menuitem[0].id,
-										OrderId: order.id
-									})
-								})
-
-
-
-
-
-
-
-							})
-
-
-						})
-					})
-				})
-			})
-
-		}, 3000);
 
 	})
 

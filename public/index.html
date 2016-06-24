@@ -1,58 +1,61 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <base href="/">
+	<meta charset="UTF-8">
+	<base href="/">
 
-    <title>Restaurant POS</title>
+	<title>Restaurant POS</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css"> <!-- custom styles -->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/ materialize.min.css"> -->
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style.css"> <!-- custom styles -->
+	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/ materialize.min.css"> -->
 
 
-    <!-- JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js"></script>
-    <!--<script src="https://code.angularjs.org/1.4.5/angular-route.js"></script> -->
-    <!-- UI-Router -->
-    <script src="https://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
-
-    <!-- ANGULAR CUSTOM -->
+	<!-- JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js"></script>
+	<!--<script src="https://code.angularjs.org/1.4.5/angular-route.js"></script> -->
+	<!-- UI-Router -->
+	<script src="https://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-resource.min.js"></script>
+	<!-- ANGULAR CUSTOM -->
     <!--
     <script src="js/controllers/MainCtrl.js"></script>
     <script src="js/controllers/NerdCtrl.js"></script>
     <script src="js/services/NerdService.js"></script>
-    -->
-    
+-->
+
 </head>
 <body ng-app="restaurantPOS" ng-controller="MainController">
-<!-- NAVBAR -->
-<!-- HEADER -->
-<div class="navbar navbar-default navbar-static-top">
-   <div class="container">
-       <div class="navbar-header">
-           <a class="navbar-brand navlink" href="/">Home</a>
-           <!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
-           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-               <span class="sr-only">Toggle Navigation</span>
-               <span class='icon-bar'></span>
-               <span class='icon-bar'></span>
-               <span class='icon-bar'></span>
-           </button>
-       </div>
-       <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
-           <li><a href="/register" class="navlink">Register</a></li>
-           <li><a href="/login" class="navlink">Login</a></li>
-       </ul>
-   </div>
-</div>
+	<!-- NAVBAR -->
+	<!-- HEADER -->
+	<div class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand navlink" href="/">Home</a>
+				<!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class='icon-bar'></span>
+					<span class='icon-bar'></span>
+					<span class='icon-bar'></span>
+				</button>
+			</div>
+			<ul class="nav navbar-nav navbar-right collapse navbar-collapse">
+				<li><a href="/app" class="navlink" target="_self">App</a></li>
+				<li><a href="/user-list" class="navlink">User List</a></li>
+				<li><a href="/register" class="navlink">Register</a></li>
+				<li><a href="/login" class="navlink">Login</a></li>
+			</ul>
+		</div>
+	</div>
 
-<!-- ANGULAR DYNAMIC CONTENT -->
-<div ui-view></div>
+	<!-- ANGULAR DYNAMIC CONTENT -->
+	<div ui-view></div>
 
-<script src="/js/app.js"></script>
-<script src="/js/controllers/MainController.js"></script>
+	<script src="/js/app.js"></script>
+	<script src="/js/services/services.js"></script>
+	<script src="/js/controllers/MainController.js"></script>
 
 </body>
 </html>
