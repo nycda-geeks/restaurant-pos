@@ -1,53 +1,50 @@
 angular.module('restaurantPOS')
-	.controller('billController', ['$scope', '$http', function($scope, $http) {
+	.controller('billController', ['$scope', '$http', '$location', function($scope, $http, $location) {
 		
-		$http.get('/v1/tables/:id').then(function(res) {
+		//TABLE NUMBER FROM URL
+		$scope.params = $location.path().split('/')[3] || "Unknown";
+
+		$http.get('/v1/tables/'+$scope.params).then(function(res) {
 			$scope.order = res.data;
 		});
 
-		/*
-		$scope.$on('data_shared', function() {
-			var order = dataShare.getData();
-			angular.forEach(order, function(m) {
-				$scope.order.push(m);
+		$scope.orders = function() {
+			var orders = [];
+			for (var i = 0; i < $scope.order.length; i++) {
+				for (var j = 0; j < $scope.order[i].Customers[0].Orders.length; j++) {
+					for (var k = 0; k < $scope.order[i].Customers[0].Orders[j].MenuItems.length; k++) {
+							orders.push(
+								{name: $scope.order[i].Customers[0].Orders[j].MenuItems[k].name,  
+								price: $scope.order[i].Customers[0].Orders[j].MenuItems[k].price}
+							);
+					}
+				}
+			}
+			return orders;
+		};
+
+
+
+		//TOTAL PRICE OF ORDER
+		$scope.total = function() {
+			var total = 0;
+			angular.forEach($scope.orders(), function(m) {
+				total += m.price;
 			});
-		});
+			return total;
+		};
 
-		$scope.getMenuItems = function() {
-			angular.forEach($scope.orderItems, function(m) {
-
-			})
-		}
-		*/
-
-		//$scope.order = shareOrder.getOrder();
+		// TOTAL QUANTITY OF ORDER
+		$scope.totalq = function() {
+			var totalq = 0;
+			angular.forEach($scope.orders(), function() {
+				totalq = totalq + 1;
+			});
+			return totalq;
+		};
 
 
 
 
 	}]);
 
-	/*
-	$scope.orderItems = [
-			{
-				MenuItem: {
-					name: 
-				}
-			}, {
-				status: ,
-				OrderItemId: true,
-				OrderId: ,
-				MenuItemId: 2
-			}, {
-				table_number: 3,
-				table_isfree: true
-			}, {
-				table_number: 4,
-				table_isfree: true
-			}, {
-				table_number: 5,
-				table_isfree: false
-			}
-		];
-		$scope.menuItems = [];
-		*/

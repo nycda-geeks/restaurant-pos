@@ -1,20 +1,20 @@
 <div class="col-md-12 col-sm-12" ng-controller="kitchenController">
-	<h1>Kitchen</h1>
-	<p>{{orderitems()}}</p>
+	<h1>Kitchen Orders</h1>
+	<p>{{order}}</p>
 	<!-- CURRENT ORDER -->
-	<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder" ng-repeat="foodPerCategory in foodToFilter() | filter: filterCategories">
+	<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder" ng-repeat="order in order | orderBy: 'createdAt'">
 		<form class="kitchenorder">
-			<h1>Orders On Queue</h1>
+			<h1>{{order.id}}</h1>
+			<p>{{order.createdAt}}</p>
+			<p>{{order.MenuItems.OrderItems.status}}
 			<ul>
-				<li ng-repeat="item in orderitems() | filter: {category: foodPerCategory.category}"> 
-					{{item[0].name}}
-					<span class="plusminus" ng-click="removeOne(order)">&#45</span>
+				<li ng-repeat="item in order.MenuItems" ng-class="{active:item.OrderItems.status=='ready'}"> 
+					{{item.name}} <span>Status: {{item.OrderItems.status}}</span>
 				</li>
 			</ul>
 			<div class="total">
 				Total: {{totalq()}} items
 			</div>
-			<p>{{array}}</p>
 			<button type="submit" class="btn btn-success closeDiv">Order Ready</button>
 		</form>
 	</div>

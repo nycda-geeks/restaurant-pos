@@ -18,7 +18,7 @@ angular.module('routes', ["ui.router"])
 					controller: 'newOrderController'
 				})
 				.state('bill', {
-					url: '/app/bill',
+					url: '/app/order/:id/bill',
 					templateUrl: '/app/views/bill.html',
 					controller: 'billController'
 				})
