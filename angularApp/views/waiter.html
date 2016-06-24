@@ -4,7 +4,7 @@
 	<div class="tablesfav">
 		<p>My Tables:</p>
 		<ul>
-			<li class="tables" ng-repeat="table in favtables | orderBy:'number'" ng-class="{active:table.isfree}"><a ui-sref="order/{{table.number}}">Table {{table.number}}</a><span ng-click="remove($index)"><a href='#'>&#45</a></span></li>
+			<li class="tables" ng-repeat="table in favtables | orderBy:'number'" ng-class="{active:table.isfree}"><a ui-sref="order({id:table.number})">Table {{table.number}}</a><span ng-click="remove($index)"><a href='#'>&#45</a></span></li>
 		</ul>
 	</div>
 	<div class="tablesall">

@@ -1,20 +1,20 @@
 <div class="col-md-12 col-sm-12" ng-controller="kitchenController">
 	<h1>Kitchen</h1>
-
+	<p>{{orderitems()}}</p>
 	<!-- CURRENT ORDER -->
-	<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder">
+	<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder" ng-repeat="foodPerCategory in foodToFilter() | filter: filterCategories">
 		<form class="kitchenorder">
 			<h1>Orders On Queue</h1>
 			<ul>
-				<li ng-repeat="order in order track by $index"> 
-					{{order.name}}
+				<li ng-repeat="item in orderitems() | filter: {category: foodPerCategory.category}"> 
+					{{item[0].name}}
 					<span class="plusminus" ng-click="removeOne(order)">&#45</span>
 				</li>
 			</ul>
 			<div class="total">
 				Total: {{totalq()}} items
 			</div>
-			<p>{{order | json}}</p>
+			<p>{{array}}</p>
 			<button type="submit" class="btn btn-success closeDiv">Order Ready</button>
 		</form>
 	</div>

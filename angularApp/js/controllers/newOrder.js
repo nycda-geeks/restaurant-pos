@@ -20,7 +20,6 @@ angular.module('restaurantPOS')
 			$http({
 			    method: 'POST',
 			    url: '/v1/tables/' + $scope.params,
-			    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 			    data: data
 			}).success(function () {});
 		};

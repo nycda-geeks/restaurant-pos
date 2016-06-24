@@ -1,8 +1,28 @@
 angular.module('restaurantPOS')
 	.controller('kitchenController', ['$scope', '$http', function($scope, $http) {
-		$http.get('/').then(function(res) {
+		
+		$http.get('/v1/orders').then(function(res) {
 			$scope.order = res.data;
 		});
+
+
+		$scope.orderitems = function() {
+			var orderItems = [];
+			angular.forEach($scope.order, function(m) {
+				orderItems.push(m.MenuItems);
+			});
+			return orderItems;
+		};
+
+		$scope.array = $scope.orderitems();
+
+		$scope.orderedItems = function() {
+			var orderedItems = [];
+			angular.forEach($scope.orderitems(), function(m) {
+				orderedItems.push(m.name);
+			});
+			return orderedItems;
+		}
 
 		// TOTAL QUANTITY OF ORDER
 		$scope.totalq = function() {
@@ -12,6 +32,21 @@ angular.module('restaurantPOS')
 			});
 			return totalq;
 		};
+
+		var indexedFood = [];
+
+		$scope.foodToFilter = function() {
+			indexedFood = [];
+			return $scope.orderitems();
+		}
+
+		$scope.filterCategories = function(food) {
+			var categoryNew = indexedFood.indexOf($scope.orderitems().category) == -1;
+			if (categoryNew) {
+				indexedFood.push(food.category);
+			}
+			return categoryNew;
+		}
 
 		/*
 		$scope.$on('data_shared', function() {
