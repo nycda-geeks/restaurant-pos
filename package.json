@@ -29,6 +29,11 @@
     "pg": "^5.1.0",
     "pg-hstore": "^2.3.2",
     "sendgrid": "^3.0.5",
-    "sequelize": "^3.23.3"
+    "sequelize": "^3.23.3",
+    "ejs": "~2.3.3",
+    "morgan": "~1.6.1",
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
   }
 }
