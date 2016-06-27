@@ -1,5 +1,6 @@
 var express = require('express');
 var session = require('express-session')
+var request = require('request')
 var router = express.Router();
 
 // token authentication
@@ -45,14 +46,60 @@ module.exports = function(passport){
 				token: req.token
 			});
 		} 
-	);
+		);
+
+//https://api01.highside.net/start/BJjOMoaH
 
 	// POST Register User
-	router.post('/register', passport.authenticate('signup', {
-		successRedirect: '/',
-		failureRedirect: '/register',
-		failureFlash : false
-	}));
+	router.post('/register', passport.authenticate('signup'), function(req, res) {
+		// if successful
+		var user = req.user
+		// request SMS for verify site
+		var url = 'https://'+process.env.SMS_USER+':'+process.env.SMS_PASSWORD+'@api01.highside.net/start/BJjOMoaH?number='+user.number+'&userid='+user.id
+		console.log(url)
+		request.get(url, function (err, response, body) {
+			if (response.statusCode == 200) {
+					var pin = JSON.parse(body)
+					var pin = parseInt(pin)
+					user.updateAttributes({
+						pin: pin
+					})
+					.then(function() {
+						res.redirect('/register/verify/' + user.id);
+						req.logout();
+					})
+					
+			} else {
+				console.log('error at request')
+				console.log(err)
+			}
+		})
+		
+	});
+
+	// POST Verify
+	router.post('/register/verify/:userid', function (req, res) {
+		var data = req.body
+		var userid = parseInt(req.params.userid)
+		if ('pin' in data) {
+			req.db.User.findOne({ where: {id: userid} }).then(function(err, user) {
+				console.log(user)
+				if (user) {
+					console.log(user)
+					if (user.pin == data.pin) {
+						// verified
+						user.updateAttributes({
+							verified: true
+						}).then(function () {
+							console.log('activated')
+							res.redirect('/login');
+						})
+					}
+				}
+			})
+			console.log(data)
+		}
+	});
 
 	// GET Logout page
 	router.get('/logout', function(req, res) {
@@ -60,13 +107,6 @@ module.exports = function(passport){
 		res.redirect('/');
 	});
 
-	// GET Test page
-	router.get('/testmail', function(req, res) {
-		console.log('send email')
-		var email = require('../mail/index')('mail@dominik-bauer.de', 'test');
-		res.send('hello world')
-
-	});
 
 	router.get('/auth', isAuthenticated, function(req, res) {
 		res.send('authenticated user: ' + req.user.username + ', restaurant id: ' + req.user.ClientId)

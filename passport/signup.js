@@ -32,7 +32,9 @@ module.exports = function(passport){
         					client.createUser({
         						'username': username,
         						'password': createHash(password),
-        						'email': req.body.email
+        						'number': req.body.number,
+        						'email': req.body.email,
+        						'verified': false
         					}).then(function(user) {
                         		console.log('User Registration successful: ' + user.username);    
                         		return done(null, user);
@@ -40,30 +42,6 @@ module.exports = function(passport){
         				})
         			}
         		})
-				
-				/*
-        		db.User.find({ where: {'username' :  username }}).then(function(user) {
-                    // already exists
-                    if (user) {
-                    	console.log('User already exists with username: '+username);
-                    	return done(null, false, req.flash('message','User Already Exists'));
-                    } else {
-                        // if there is no user with that email
-                        // create the user
-                        console.log('cant find user, must create')
-
-                        // save the user
-                        db.User.create({
-                        	'username': username,
-                        	'password': createHash(password),
-                        	'email': req.param('email')
-                        }).then(function(user) {
-                        	console.log('User Registration successful: ' + user.username);    
-                        	return done(null, user);
-                        });
-                    }
-                });
-                */
         	};
 
         	findOrCreateUser();
