@@ -1,23 +1,24 @@
-<div class="col-md-12 col-sm-12" ng-controller="billController">
-	<h1>Finalize Bill</h1>
+<div class="col m12" ng-controller="billController">
 	<!-- CURRENT ORDER -->
-	<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder" >
-		<div >
-			<form class="currentorder" >
-				<h1>Bill For Table {{params}}</h1>
-				<ul>
-					<p>{{menu.MenuItems}}</p>
-					<li ng-repeat="items in orders() track by $index">
-						{{items.name}} <span>{{items.price | currency}}</span>
-					</li>
-					
-				</ul>
-				<div class="total">
-					Total: {{totalq()}} items <span>{{total() | currency}}</span> 
-				</div>
-			</form>
-			<a href="#" class="btn btn-success closeDiv" role="button">Place Order</a>
-			<a href="#" class="btn btn-danger closeDiv" role="button">Finalize Bill</a>
-		</p>
+	<div class="row">
+		<div class="col m10 col offset-m1 col s12 currentOrder" >
+			<div >
+				<form class="currentorder" >
+					<h1>Bill For Table {{params}}</h1>
+					<ul>
+						<p>{{menu.MenuItems}}</p>
+						<li ng-repeat="items in orders() track by $index">
+							{{items.name}} <span>{{items.price | currency}}</span>
+						</li>
+						
+					</ul>
+					<div class="total">
+						Total: {{totalq()}} items <span>{{total() | currency}}</span> 
+					</div>
+				</form>
+				<a href="#" class="btn red lighten-2 closeDiv" role="button">Pay By Cash</a>
+				<a href="#" class="btn teal lighten-2 closeDiv" role="button">Pay By Card</a>
+			</p>
+		</div>
 	</div>
 </div>

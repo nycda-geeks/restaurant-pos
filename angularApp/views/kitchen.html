@@ -1,21 +1,18 @@
-<div class="col-md-12 col-sm-12" ng-controller="kitchenController">
-	<h1>Kitchen Orders</h1>
-	<p>{{order}}</p>
+<div class="col m12" ng-controller="kitchenController">
 	<!-- CURRENT ORDER -->
-	<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder" ng-repeat="order in order | orderBy: 'createdAt'">
-		<form class="kitchenorder">
-			<h1>{{order.id}}</h1>
-			<p>{{order.createdAt}}</p>
-			<p>{{order.MenuItems.OrderItems.status}}
-			<ul>
-				<li ng-repeat="item in order.MenuItems" ng-class="{active:item.OrderItems.status=='ready'}"> 
-					{{item.name}} <span>Status: {{item.OrderItems.status}}</span>
-				</li>
-			</ul>
-			<div class="total">
-				Total: {{totalq()}} items
-			</div>
-			<button type="submit" class="btn btn-success closeDiv">Order Ready</button>
-		</form>
+	<div class="row">
+		<div class="col m4 col s6 currentOrder" ng-repeat="order in order | orderBy: 'createdAt'">
+
+			<form class="kitchenorder">
+				<p class="titlekitchen white-text">Order {{order.id}}</p>
+				<p class="white-text"> <em>Created At {{order.createdAt | date: 'mediumTime'}}</em></p>
+				<p>{{order.MenuItems.OrderItems.status}}</p>
+				<ul>
+					<li ng-repeat="item in order.MenuItems" ng-class="{active:item.OrderItems.status=='ready'}"> 
+						{{item.name}} <span class="status"><em>{{item.OrderItems.status | lowercase}}</em></span>
+					</li>
+				</ul>
+			</form>
+		</div>
 	</div>
 </div>

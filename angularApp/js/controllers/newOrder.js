@@ -145,6 +145,8 @@ angular.module('restaurantPOS')
 			return categoryNew;
 		}
 
+		$scope.message = "Your Order Was Placed!";
+
 		/*
 		$scope.send = function() {
 			dataShare.sendData($scope.order);

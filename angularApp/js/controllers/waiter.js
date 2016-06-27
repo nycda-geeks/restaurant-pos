@@ -17,5 +17,18 @@ angular.module('restaurantPOS')
 			$scope.favtables.splice(index, 1);
 		}
 
+	    $scope.moveItem = function(item, from, to) {
+
+	        console.log('Move item   Item: '+item+' From:: '+from+' To:: '+to);
+	        //Here from is returned as blank and to as undefined
+
+	        var idx=from.indexOf(item);
+	        if (idx != -1) {
+	            from.splice(idx, 1);
+	            to.push(item);      
+	        }
+	    };
+   
+
 
 	}]);
