@@ -52,7 +52,7 @@
 		<!-- CURRENT ORDER -->
 		<div class="row">
 			<div class="col m8 col offset-m2 col s12 currentOrder">
-				<form class="currentorder" ng-submit="sendOrder()" name="postOrder">
+				<form class="currentorder" name="postOrder">
 					<p class='title'>Current Order</p>
 					<ul>
 						<li class="green lighten-2" ng-repeat="order in order track by $index"> 
@@ -60,7 +60,7 @@
 							<span class="plusminus" ng-click="removeOne(order)">&#88</span>
 						</li>
 					</ul>
-					<button type="submit" class="btn red lighten-2"><a href="/app/" message="{{message}}" toast="click">Place Order</a></button>
+					<button class="btn red lighten-2"><a id="link" ng-click="sendOrder()" ref="/app/" message="{{message}}" toast="click">Place Order</a></button>
 				</form>
 				<div id="finalize">
 					<a href="/app/order/{{params}}/bill" class="btn closeDiv" role="button" >Finalize Bill</a>
