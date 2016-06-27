@@ -325,7 +325,6 @@ router.post('/menu/', function(req, res) {
 					console.log('created new menuitem ' + item.name + ' for client ' + item.ClientId)
 					res.sendStatus(200)
 				})
-				
 			})
 		} else {
 			console.log('requesting user is not manager')

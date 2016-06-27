@@ -17,6 +17,11 @@ angular.module('restaurantPOS', ['ui.router', 'usermgmt.services'])
 						templateUrl:'/views/login.html',
 						controller: 'MainController'
 					})
+					.state('verify', {
+						url: '/register/verify/:userid',
+						templateUrl:'/views/verify.html',
+						controller: 'MainController'
+					})
 					.state('user-list', {
 						url: '/user-list',
 						templateUrl:'/views/user-list.html',
