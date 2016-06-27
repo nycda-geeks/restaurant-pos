@@ -55,12 +55,12 @@
 				<form class="currentorder" ng-submit="sendOrder()" name="postOrder">
 					<p class='title'>Current Order</p>
 					<ul>
-						<li class="green lighten-2"ng-repeat="order in order track by $index"> 
+						<li class="green lighten-2" ng-repeat="order in order track by $index"> 
 							{{order.name}} <a ng-repeat="side in order.sides"> + {{side.name}} </a>
 							<span class="plusminus" ng-click="removeOne(order)">&#88</span>
 						</li>
 					</ul>
-					<a href="/app/" message="{{message}}" toast="click"><button type="submit" class="btn red lighten-2 closeDiv">Place Order</button></a>
+					<button type="submit" class="btn red lighten-2"><a href="/app/" message="{{message}}" toast="click">Place Order</a></button>
 				</form>
 				<div id="finalize">
 					<a href="/app/order/{{params}}/bill" class="btn closeDiv" role="button" >Finalize Bill</a>

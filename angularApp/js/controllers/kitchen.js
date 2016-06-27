@@ -1,7 +1,7 @@
 angular.module('restaurantPOS')
 	.controller('kitchenController', ['$scope', '$http', function($scope, $http) {
 		
-		$http.get('/v1/orders/kitchen').then(function(res) {
+		$http.get('/v1/orders/').then(function(res) {
 			$scope.order = res.data;
 		});
 

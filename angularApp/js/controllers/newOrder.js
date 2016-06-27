@@ -9,20 +9,7 @@ angular.module('restaurantPOS')
 			$scope.menuitems = res.data;
 		});
 
-		//SEND ORDER
-		$scope.sendOrder = function() {
-			var data = $scope.order;
-			/*
-			$http.post('/v1/tables/' + $scope.params, data).success(function(data, status) {
-				
-			});*/
- 
-			$http({
-			    method: 'POST',
-			    url: '/v1/tables/' + $scope.params,
-			    data: data
-			}).success(function () {});
-		};
+		
 
 		//LIST OF DRINKS
 		$scope.drink = function() {
@@ -68,6 +55,22 @@ angular.module('restaurantPOS')
 		$scope.order = [];
 
 		console.log($scope.order);
+
+		//SEND ORDER
+		$scope.sendOrder = function() {
+			var data = $scope.order;
+			/*
+			$http.post('/v1/tables/' + $scope.params, data).success(function(data, status) {
+				
+			});*/
+ 			console.log('Trigger post');
+			$http({
+			    method: 'POST',
+			    url: '/v1/tables/' + $scope.params,
+			    data: data
+			}).success(function () {});
+		};
+		
 		//VALUE FOR NG-HIDE SIDE-DISH SELECTOR DIV
 		$scope.addside = true;
 

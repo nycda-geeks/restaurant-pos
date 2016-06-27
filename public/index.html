@@ -14,6 +14,7 @@
 
 
 	<!-- JS -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js"></script>
 	<!--<script src="https://code.angularjs.org/1.4.5/angular-route.js"></script> -->
 	<!-- UI-Router -->
@@ -40,7 +41,7 @@
 			<li><a href="/register" class="navlink">Register</a></li>
 			<li><a href="/login" class="navlink">Login</a></li>
 	      </ul>
-	      <ul id="nav-mobile" class="side-nav">
+	      <ul id="nav-mobile" class="side-nav teal lighten-2">
 	        <li><a href="/app" target="_self">App</a></li>
 			<li><a href="/menu-editor" class="navlink">Menu Editor</a></li>
 			<li><a href="/user-list" class="navlink">User List</a></li>
@@ -80,8 +81,13 @@
 	<script src="/js/services/services.js"></script>
 	<script src="/js/controllers/MainController.js"></script>
 	<script>
-		$(document).ready(function() {
-			$(".button-collapse").sideNav();
+		$(document).ready(function(){
+		  $('.button-collapse').sideNav({
+		    menuWidth: 300, // Default is 240
+		    edge: 'right', // Choose the horizontal origin
+		    closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+		    }
+		  );  
 		})
 	</script>
 </body>
