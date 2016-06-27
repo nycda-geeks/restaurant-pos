@@ -5,11 +5,10 @@ angular.module('restaurantPOS')
 			$scope.order = res.data;
 		});
 
-
 		$scope.orderitems = function() {
 			var orderItems = [];
-			angular.forEach($scope.order.MenuItems, function(m) {
-				orderItems.push(m);
+			angular.forEach($scope.order, function(m) {
+				orderItems.push(m.Menu);
 			});
 			return orderItems;
 		};
@@ -24,14 +23,12 @@ angular.module('restaurantPOS')
 			return orderedItems;
 		}
 
-		// TOTAL QUANTITY OF ORDER
-		$scope.totalq = function() {
-			var totalq = 0;
-			angular.forEach($scope.order, function() {
-				totalq = totalq + 1;
+		$scope.yetReady = function() {
+			$http.get('/v1/orders/kitchen').success(function(res) {
+				$scope.order = res.data;
 			});
-			return totalq;
-		};
+			
+		}
 
 		var indexedFood = [];
 
@@ -46,6 +43,12 @@ angular.module('restaurantPOS')
 				indexedFood.push(food.category);
 			}
 			return categoryNew;
+		}
+
+		$scope.timeSince = function() {
+			var now = new Date();
+			var timeSince = now - $scope.order.createdAt;
+			return timeSince;
 		}
 
 

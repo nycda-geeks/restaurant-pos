@@ -1,1 +1,1 @@
-angular.module('restaurantPOS', ['routes', 'ui.router']);
+angular.module('restaurantPOS', ['routes', 'ui.router','ui.materialize']);
