@@ -1,0 +1,21 @@
+<div class="col-md-12 col-sm-12" ng-controller="barController">
+	<h1>Bar</h1>
+
+	<!-- CURRENT ORDER -->
+	<div class="col-md-8 col-md-offset-2 col-sm-12 currentOrder">
+		<form class="barorder">
+			<h1>Drink Orders On Queue</h1>
+			<ul>
+				<li ng-repeat="order in drinkorder track by $index"> 
+					{{order.name}}
+					<span class="plusminus" ng-click="removeOne(order)">&#45</span>
+				</li>
+			</ul>
+			<div class="total">
+				Total: {{totalq()}} items
+			</div>
+			<p>{{order | json}}</p>
+			<button type="submit" class="btn btn-success closeDiv">Order Ready</button>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,18 @@
+<div class="col m12" ng-controller="kitchenController">
+	<!-- CURRENT ORDER -->
+	<div class="row">
+		<div class="col m4 col s6 currentOrder" ng-repeat="order in order | orderBy: 'createdAt'">
+
+			<form class="kitchenorder">
+				<p class="titlekitchen white-text">Order {{order.id}}</p>
+				<p class="white-text"> <em>Created At {{order.createdAt | date: 'mediumTime'}}</em></p>
+				<p>{{order.MenuItems.OrderItems.status}}</p>
+				<ul>
+					<li ng-repeat="item in order.MenuItems" ng-class="{active:item.OrderItems.status=='ready'}"> 
+						{{item.name}} <span class="status"><em>{{item.OrderItems.status | lowercase}}</em></span>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
+</div>

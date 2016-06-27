@@ -10,60 +10,38 @@ module.exports = function(passport){
         function(req, username, password, done) {
         	console.log('signup triggered')
         	findOrCreateUser = function(){
-        		console.log('findOrCreateUser triggered')
-        		console.log(req.body)
-        		
         		// NEW
-        		db.Client.find({ where: {'name': req.body.name }}).then(function(client) {
+        		db.Client.find({ where: {'name': req.body.restaurantname }}).then(function(client) {
         			if (client) {
         				console.log('Client already exists: ' + client.name + ' , ClientID: ' + client.id)
-        				return done(null, false, req.flash('message','User Already Exists'));
+        				return done(null, false);
         			} else {
         				console.log('client does not exist, must create')
         				var newclient = {
-        					'name': req.body.name
+        					'name': req.body.restaurant
         				}
+        				newclient.friendlyname = req.body.restaurant.toString().toLowerCase().replace(/ /g, '');
+
         				if (req.body.description) {
         					newclient.description = req.body.description
         				}
-        				/*
+        				console.log(newclient)
+        				
         				db.Client.create(newclient).then(function(client) {
+        					console.log('Client Registration successful: ' + client.friendlyname);    
         					client.createUser({
         						'username': username,
         						'password': createHash(password),
-        						'email': 'luigi@gmx.de',
-        						'firstname': 'Luigi',
-        						'lastname': 'Mario'
-        					})
-
+        						'number': req.body.number,
+        						'email': req.body.email,
+        						'verified': false
+        					}).then(function(user) {
+                        		console.log('User Registration successful: ' + user.username);    
+                        		return done(null, user);
+                        	});
         				})
-        				*/
         			}
         		})
-				
-				/*
-        		db.User.find({ where: {'username' :  username }}).then(function(user) {
-                    // already exists
-                    if (user) {
-                    	console.log('User already exists with username: '+username);
-                    	return done(null, false, req.flash('message','User Already Exists'));
-                    } else {
-                        // if there is no user with that email
-                        // create the user
-                        console.log('cant find user, must create')
-
-                        // save the user
-                        db.User.create({
-                        	'username': username,
-                        	'password': createHash(password),
-                        	'email': req.param('email')
-                        }).then(function(user) {
-                        	console.log('User Registration successful: ' + user.username);    
-                        	return done(null, user);
-                        });
-                    }
-                });
-                */
         	};
 
         	findOrCreateUser();

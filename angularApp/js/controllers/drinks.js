@@ -34,15 +34,6 @@ angular.module('restaurantPOS')
 			}
 		};
 
-		$scope.toggleActive = function(d) {
-			if (d.quantity > 0) {
-				d.active = true;
-			}
-			else {
-				d.active = false;
-			}
-		};
-
 		$scope.total = function() {
 			var total = 0;
 
@@ -54,4 +45,26 @@ angular.module('restaurantPOS')
 
 			return total;
 		};
+
+		$scope.totalq = function() {
+			var totalq = 0;
+
+			angular.forEach($scope.drinks, function(d) {
+				if (d.quantity > 0) {
+					totalq += d.quantity;
+				}
+			});
+
+			return totalq;
+		};
+
+		$scope.toggleActive = function(d) {
+			if (d.quantity > 0) {
+				d.active = true;
+			}
+			else {
+				d.active = false;
+			}
+		};
+
 	}]);

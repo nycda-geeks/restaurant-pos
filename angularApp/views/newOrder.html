@@ -1,0 +1,70 @@
+<div class="col m12" ng-controller="newOrderController">
+		<h1>Create A New Order</h1>
+		<!-- DRINKS -->
+		<div class="row">
+			<div class="col m8 col offset-m2 col s12">
+				<form>
+					<p class='title'>Drinks</p>
+					<div class="drinks">
+						<ul>
+							<li class="red lighten-2" ng-repeat="drink in drinks" ng-click="addOne(drink)" ng-class="{active:drink.active}" message="{{drink.name}}" duration="1000" toast="click">
+								{{drink.name}}
+								<!--<span>{{drink.quantity}}</span> -->
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<!-- FOOD -->
+			<div class="col m8 col offset-m2 col s12" ng-repeat="foodPerCategory in foodToFilter() | filter: filterCategories">
+				<form>
+					<p class='title'>{{foodPerCategory.category}}</p>
+					<div class="food">
+						<ul>
+							<li class="red lighten-2" ng-repeat="food in food | filter: {category: foodPerCategory.category}" ng-click="addOne(food)" ng-class="{active:food.active}" message="{{food.name}}" duration="1000" toast="click">
+								{{food.name}} 
+								<!-- <span>{{food.quantity}}</span> -->
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+
+			<div class="col m2 col s6" ng-hide="addside">
+				<form>
+					<span><a href="#" ng-click="addside = true" class="closeDiv">&times</a></span>
+					<p class='title'>Choose Sides</p>
+					<div class="sides">
+						<ul>
+							<li class="red lighten-2" ng-repeat="side in sides" ng-click="addOneSide(side)" ng-class="{active:food.active}" message="{{side.name}}" duration="1000" toast="click">
+								{{side.name}}
+								<!-- <span>{{food.quantity}}</span> -->
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<!-- CURRENT ORDER -->
+		<div class="row">
+			<div class="col m8 col offset-m2 col s12 currentOrder">
+				<form class="currentorder" ng-submit="sendOrder()" name="postOrder">
+					<p class='title'>Current Order</p>
+					<ul>
+						<li class="green lighten-2" ng-repeat="order in order track by $index"> 
+							{{order.name}} <a ng-repeat="side in order.sides"> + {{side.name}} </a>
+							<span class="plusminus" ng-click="removeOne(order)">&#88</span>
+						</li>
+					</ul>
+					<button type="submit" class="btn red lighten-2"><a href="/app/" message="{{message}}" toast="click">Place Order</a></button>
+				</form>
+				<div id="finalize">
+					<a href="/app/order/{{params}}/bill" class="btn closeDiv" role="button" >Finalize Bill</a>
+				</div>
+			</div>
+		</div>
+</div>

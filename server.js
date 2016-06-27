@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+
 var bodyparser = require("body-parser");
 var cookieparser = require('cookie-parser');
 var path = require('path');
@@ -20,18 +21,15 @@ app.use(cookieparser());
 // configure auth and session
 var passport = require('passport');
 var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
 var LocalStrategy = require('passport-local').Strategy;
 
 // initialize authentication and sessions
 app.use(session({
 	secret: 'secretsecret', 
 	resave: false, 
-	saveUninitialized: false,
+	saveUninitialized: false
 	// using redis for session storage here. if no redis server available, change 'store' to use another sessionstore.
-	store: new RedisStore({
-		url: process.env.REDIS_URL
-	}) 
+
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -61,10 +59,22 @@ var isAuthenticated = function (req, res, next) {
 var route_index = require('./routes/index')(passport);
 var route_api = require('./routes/api');
 
-app.use('/app', isAuthenticated, express.static('./test/'));
+app.use('/app', isAuthenticated, express.static('./angularApp/'));
+app.use('/v1', isAuthenticated, route_api);
 app.use('/', express.static('./public/'));
-app.use('/v1', route_api);
 app.use('/', route_index);
+
+// send angular page for * to enable html5mode (routing through angular)
+app.get('/app/*', isAuthenticated, function(req, res) {
+    res.sendfile('./angularApp/index.html');
+  });
+
+// send angular page for * to enable html5mode (routing through angular)
+app.get('/*/', function(req, res) {
+	console.log('hit get /*/')
+    res.sendfile('./public/index.html');
+  });
+
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
@@ -76,3 +86,4 @@ app.use(function(req, res, next) {
 app.listen(3000, function () {
 	console.log('App listening on port 3000!');
 });
+

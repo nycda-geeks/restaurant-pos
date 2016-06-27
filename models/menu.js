@@ -1,6 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
 	var MenuItem = sequelize.define("MenuItem", {
 		name: DataTypes.STRING,
+		number: DataTypes.INTEGER,
 		category: DataTypes.STRING,
 		price: DataTypes.FLOAT,
 		amountofsides: DataTypes.INTEGER,
