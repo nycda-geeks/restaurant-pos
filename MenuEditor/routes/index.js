@@ -32,7 +32,7 @@ router.post('/api/v1/menuitems', function(req,res){
 					isdrink: items.dataValues.isdrink,
 					isvegan: items.dataValues.isvegan,
 					isveggie: items.dataValues.isveggie,
-					itemnumber: items.dataValues.itemnumber,
+					itemnumber: items.dataValues.itemnumber
 				}
 			})
 			res.json(data)
@@ -57,7 +57,7 @@ router.get('/api/v1/menuitems/', function(req,res){
 					isdrink: items.dataValues.isdrink,
 					isvegan: items.dataValues.isvegan,
 					isveggie: items.dataValues.isveggie,
-					itemnumber: items.dataValues.itemnumber,
+					itemnumber: items.dataValues.itemnumber
 				}
 			})
 
@@ -92,7 +92,7 @@ router.put('/api/v1/menuitems/:menuitem_id', function(req,res){
 					isdrink: items.dataValues.isdrink,
 					isvegan: items.dataValues.isvegan,
 					isveggie: items.dataValues.isveggie,
-					itemnumber: items.dataValues.itemnumber,
+					itemnumber: items.dataValues.itemnumber
 				}
 			})
 			res.json(data)
@@ -117,7 +117,7 @@ router.delete('/api/v1/menuitems/:menuitem_id', function(req,res){
 					isdrink: items.dataValues.isdrink,
 					isvegan: items.dataValues.isvegan,
 					isveggie: items.dataValues.isveggie,
-					itemnumber: items.dataValues.itemnumber,
+					itemnumber: items.dataValues.itemnumber
 				}
 			})
 			res.json(data)
