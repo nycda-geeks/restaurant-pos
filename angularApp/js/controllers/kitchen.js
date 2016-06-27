@@ -52,6 +52,7 @@ angular.module('restaurantPOS')
 		}
 
 
+
 		/*
 		$scope.$on('data_shared', function() {
 			var order = dataShare.getData();

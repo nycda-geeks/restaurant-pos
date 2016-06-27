@@ -38,6 +38,10 @@ a, a:visited {
 	color:#fff;
 }
 
+#link {
+	color: #fff;
+}
+
 a:hover{
 	text-decoration:none;
 }
