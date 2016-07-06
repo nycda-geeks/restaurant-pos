@@ -1,6 +1,6 @@
 # restaurant-pos
 
-Point of Sale system for restaurants & bar built with Node.js, Express.js, PostgreSQL, Angular.js, MaterializeCSS, Passport.js, Message API by Highside.
+Point of Sale system for restaurants & bar built with Node.js, Express.js, PostgreSQL, Angular.js, MaterializeCSS, Passport.js.
 
 Users can register their restaurant/bar and upload/access/update their menu, table system and list of employees.
 Servers/Waiters/Bartenders can login, add their assigned tables to 'My Tables', access their restaurant's menu and place orders.
